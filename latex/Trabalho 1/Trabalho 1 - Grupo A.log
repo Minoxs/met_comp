@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.21)  2 SEP 2019 13:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.8.21)  2 SEP 2019 16:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -749,22 +749,65 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--38
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--44
+
+ []
+
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 44.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 44.
 
-Overfull \vbox (8.5906pt too high) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 50--56
 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--56
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--56
+
+ []
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 59.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--62
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--73
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--78
+
+ []
+
+
+Package multicol Warning: I moved some lines to the next page.
+(multicol)                Footnotes on page 1 might be wrong on input line 83.
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
 (./Trabalho 1 - Grupo A.aux) ) 
 Here is how much of TeX's memory you used:
  3908 strings out of 492982
  51710 string characters out of 6134896
- 149930 words of memory out of 5000000
+ 134930 words of memory out of 5000000
  7365 multiletter control sequences out of 15000+600000
  40798 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -780,10 +823,10 @@ xmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr
 r/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/publ
 ic/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/
 texmf/fonts/type1/public/lm/lmsy8.pfb>
-Output written on "Trabalho 1 - Grupo A.pdf" (1 page, 211025 bytes).
+Output written on "Trabalho 1 - Grupo A.pdf" (2 pages, 211749 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+ 66 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
