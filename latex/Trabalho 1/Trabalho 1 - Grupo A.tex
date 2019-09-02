@@ -1,6 +1,6 @@
 %%PREAMBLE STARTS HERE%%
 
-\documentclass[brazilian,12pt,a4paper]{article}
+\documentclass[brazilian,10pt,a4paper]{article}
 \usepackage[a4paper]{geometry}
 \geometry{verbose,tmargin=1in,bmargin=0.8in,lmargin=1in,rmargin=0.8in}
 \usepackage[brazil]{babel}
@@ -37,37 +37,51 @@ e5408 (2018), concerning electrostatics applied to colloidal systems are present
 \textbf{Keywords:} electrostatic, screening.\\
 \end{abstract}
 \begin{multicols}{2}
-No artigo intitulado “Eletrostática em sistemas co-
-loidais carregados” [1], é apresentado “um estudo da
-eletrostática aplicada aos sitemas coloidais”com o obje-
-tivo de possibilitar “uma visão mais ampla dos conceitos
+No artigo intitulado “Eletrostática em sistemas coloidais carregados” [1], é apresentado “um estudo da
+eletrostática aplicada aos sitemas coloidais”com o objetivo de possibilitar “uma visão mais ampla dos conceitos
 estudados em sala através de uma aplicação direta da
-teoria”. Ainda que pertinente, por aplicar conceitos fa-
-miliares da eletrostática a uma siuação de interesse, o
-trabalho apresenta alguns problemas conceituais que dis-
-cutiremos nessas notas. Apresentaremos uma crítica a
+teoria”. Ainda que pertinente, por aplicar conceitos familiares da eletrostática a uma siuação de interesse, o
+trabalho apresenta alguns problemas conceituais que discutiremos nessas notas. Apresentaremos uma crítica a
 maneira como na Referência [1] são derivadas equações
 da eletrostática para um problema específico (sistemas
-coloidais) e como essas [equações (41) e (44) daquele tra-
-balho] são interpretadas como uma possível nova lei de
+coloidais) e como essas [equações (41) e (44) daquele trabalho] são interpretadas como uma possível nova lei de
 Gauss. Indo direto ao ponto, são apresentadas expressões
 que, segundo os autores, seriam “equações equivalentes
 para a lei de Gauss, tanto na forma integral como na
-forma diferencial”. Conforme mostraremos, trata-se ape-
-nas das equações básicas da eletrostática escritas para
+forma diferencial”. Conforme mostraremos, trata-se apenas das equações básicas da eletrostática escritas para
 uma situação específica ou escritas de forma equivocada.
-Vamos começar fazendo uma breve revisão da eletros-
-tática, cujas leis fundamentais (equações de Maxwell)
+Vamos começar fazendo uma breve revisão da eletrostática, cujas leis fundamentais (equações de Maxwell)
 para um meio dielétrico são dadas por
 \begin{equation}\label{1}
 \nabla\times\vec{E}(\vec{r}) = 0
 \end{equation}
 \begin{equation}\label{2}
-\nabla\cdot\vec{D}(\vec{r}) = p_{ext}(\vec{r}) 
+\nabla\cdot\vec{D}(\vec{r}) = \rho_{ext}(\vec{r}) , 
 \end{equation}
 onde $\vec{E}$ e $\vec{D}$ são, respectivamente, o campo elétrico e o vetor deslocamento
 e $\rho_{ext}(\vec{r})$ é a densidade de carga externa. Em termos do vetor campo elétrico
-$\vec{E}$, a equação (\ref{2}) é escrita como
+$\vec{E}$, a equação (\ref{2}) é escrita como 
+\begin{equation}\label{3}
+\nabla\cdot\vec{E}(\vec{r})=\frac{\rho_{total}(\vec{r})}{\epsilon_{0}}=\frac{\rho_{ext}(\vec{r})+\rho_{pol}(\vec{r})}{\epsilon_{0}} ,
+\end{equation}
+onde $\epsilon_{0}$ é a permissividade elétrica no vácuo, $\rho_{total} = \rho_{ext} + \rho_{pol}$ é a densidade de carga de
+polarização dada por $\rho P = -\nabla\cdot\vec{P}$ onde $\vec{P}$ é o vetor polarização elétrica. Para muitos materiais há uma
+relação simples entre $\vec{E}$ e $\vec{D}$ dada por
+\begin{equation}\label{4}
+\vec{D} = \epsilon\vec{E} ,
+\end{equation}
+onde $\epsilon$ é a permissividade elétrica do material e no caso geral é uma função da posição e do tempo \ref{2}. Se considerarmos $\epsilon$ uma constante característica do material a equação (\ref{2}) se torna
+\begin{equation}\label{5}
+\nabla\cdot\vec{E}(\vec{r})=\frac{\rho_{ext}(\vec{r})}{\epsilon} .
+\end{equation}
+As equações (\ref{1}) e (\ref{5}), com condições de contorno apropriadas, determinam completamente o campo elétrico \ref{3}.
+Apenas para sistemas suficientemente simétricos, é possível determinar o campo elétrico utilizando somente a lei de gauss, que
+é a situação apresentada em todos os livros textos de eletromagnetismo \ref{4} - 7. A equação (\ref{1}) %corrigir as referências aqui.
+expressa o fato de que o campo eletrostático é conservativo, podendo, então, ser expresso como o gradiente de um campo escalar, i.e.,
+\begin{equation}\label{6}
+\vec{E}(\vec{r})= -\nabla\phi(r) .
+\end{equation}
+	Isso permite combinar as equações vetoriais (\ref{1}) e (\ref{5}) em uma única
 \end{multicols}
 
 
