@@ -16,3 +16,8 @@ Aula sobre fortran.
 Não prestei muita atenção porque é bem simples e está tudo na apostila no moodle.
 
 Fiz algum progresso no _coin\_game_. :)
+
+## Aula do dia 02/09/2019
+Mais coisas sobre fortran, o professor começou em 3.2 e continuou até não sei aonde.
+
+Fiquei fazendo o trabalho 1 de latex
