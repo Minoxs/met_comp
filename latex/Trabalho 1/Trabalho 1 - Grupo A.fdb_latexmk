@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1567524521 "Trabalho 1 - Grupo A.tex" "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.pdf" "Trabalho 1 - Grupo A" 1567524522
+["pdflatex"] 1567526693 "Trabalho 1 - Grupo A.tex" "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.pdf" "Trabalho 1 - Grupo A" 1567526702
   "/etc/texmf/web2c/texmf.cnf" 1566412042 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux" 1567524522 2148 2bd139304bae4ef8df36040f3e4c50ee ""
+  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux" 1567526694 2148 4dedd3e804de2803416e0d1fe97cdc5f ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1480098698 916 f87d7c45f9c908e672703b83b72241a3 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm" 1480098698 924 9904cf1d39e9767e7a3622f2a125a565 ""
@@ -106,7 +106,6 @@
   "/usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb" 1254938640 27863 09ce3735688ffde955e72da27c95b61a ""
   "/usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb" 1254938640 28109 6d61305ed3d0eb794ebe36f15cf44aa0 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb" 1254938640 27941 d1f5d03f61a46c3fcc3a2ba904ddda52 ""
-  "/usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb" 1254938640 27802 5c876bb2c4040caaf035d60bd74a86bd ""
   "/usr/share/texmf/tex/latex/lm/lmodern.sty" 1256929440 1606 c17281c7cff2bbd7ff0173e1433487ec ""
   "/usr/share/texmf/tex/latex/lm/omllmm.fd" 1256929440 888 44447a3a3af84a22454ef89500942d93 ""
   "/usr/share/texmf/tex/latex/lm/omslmr.fd" 1256929440 1013 f8133048bddeed1bf1041c9d830a3723 ""
@@ -116,13 +115,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1566418473 2700761 ac0584cc9514ab21918550a6948c4ee2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1566418519 4130836 322b07a0dae656cbca0b7c21f6f303fc ""
-  "Trabalho 1 - Grupo A.aux" 1567524522 2148 2bd139304bae4ef8df36040f3e4c50ee ""
-  "Trabalho 1 - Grupo A.out" 1567524522 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "Trabalho 1 - Grupo A.tex" 1567524518 15526 0a0515867a5faaa84104bdbff3360b28 ""
+  "Trabalho 1 - Grupo A.aux" 1567526694 2148 4dedd3e804de2803416e0d1fe97cdc5f ""
+  "Trabalho 1 - Grupo A.out" 1567526694 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "Trabalho 1 - Grupo A.tex" 1567526702 15526 5d4459a15e5fcfb7cff46ab54462582c ""
   (generated)
-  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.log"
-  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.pdf"
+  "Trabalho 1 - Grupo A.pdf"
   "Trabalho 1 - Grupo A.log"
+  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.pdf"
+  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.log"
   "Trabalho 1 - Grupo A.out"
   "Trabalho 1 - Grupo A.aux"
-  "Trabalho 1 - Grupo A.pdf"
