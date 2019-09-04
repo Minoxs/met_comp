@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1567526693 "Trabalho 1 - Grupo A.tex" "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.pdf" "Trabalho 1 - Grupo A" 1567526702
+["pdflatex"] 1567601179 "Trabalho 1 - Grupo A.tex" "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.pdf" "Trabalho 1 - Grupo A" 1567601180
   "/etc/texmf/web2c/texmf.cnf" 1566412042 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux" 1567526694 2148 4dedd3e804de2803416e0d1fe97cdc5f ""
+  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux" 1567601179 2148 4dedd3e804de2803416e0d1fe97cdc5f ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1480098698 916 f87d7c45f9c908e672703b83b72241a3 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm" 1480098698 924 9904cf1d39e9767e7a3622f2a125a565 ""
@@ -115,13 +115,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1566418473 2700761 ac0584cc9514ab21918550a6948c4ee2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1566418519 4130836 322b07a0dae656cbca0b7c21f6f303fc ""
-  "Trabalho 1 - Grupo A.aux" 1567526694 2148 4dedd3e804de2803416e0d1fe97cdc5f ""
-  "Trabalho 1 - Grupo A.out" 1567526694 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "Trabalho 1 - Grupo A.tex" 1567526702 15526 5d4459a15e5fcfb7cff46ab54462582c ""
+  "Trabalho 1 - Grupo A.aux" 1567601179 2148 4dedd3e804de2803416e0d1fe97cdc5f ""
+  "Trabalho 1 - Grupo A.out" 1567601179 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "Trabalho 1 - Grupo A.tex" 1567601178 15685 65f4aa19685c4cdb9d24aacc97a7c5c7 ""
   (generated)
-  "Trabalho 1 - Grupo A.pdf"
-  "Trabalho 1 - Grupo A.log"
   "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.pdf"
-  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.log"
-  "Trabalho 1 - Grupo A.out"
   "Trabalho 1 - Grupo A.aux"
+  "/home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.log"
+  "Trabalho 1 - Grupo A.pdf"
+  "Trabalho 1 - Grupo A.out"
+  "Trabalho 1 - Grupo A.log"

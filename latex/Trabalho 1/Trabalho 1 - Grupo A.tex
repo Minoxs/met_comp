@@ -11,7 +11,7 @@
 \usepackage{hyperref}
 \usepackage{lmodern}
 
-\geometry{verbose,tmargin=2.57cm,bmargin=2.57cm,lmargin=20mm,rmargin=20mm}
+\geometry{verbose,tmargin=2.57cm,bmargin=2.57cm,lmargin=1.6cm,rmargin=1.9cm}
 \pagestyle{empty}
 
 %Title information%
@@ -27,6 +27,7 @@
 \renewcommand{\abstractname}{}
 \frenchspacing
 \maketitle
+\thispagestyle{empty}
 \begin{abstract}
 Comentam-se nessas notas resultados obtidos em trabalho publicado neste periódico sobre a eletrostática em
 sistemais coloidais, Revista Brasileira de Ensino de Física \textbf{40}, e5408 (2018).\\
@@ -64,8 +65,7 @@ onde $\epsilon$ é a permissividade elétrica do material e no caso geral é uma
 \begin{equation}\label{5}
 \nabla\cdot\vec{E}(\vec{r})=\frac{\rho_{ext}(\vec{r})}{\epsilon}\;.
 \end{equation}
-\par As equações \eqref{1} e \eqref{5}, com condições de contorno apropriadas, determinam completamente o campo elétrico \cite{tort}.\\
-Apenas para sistemas suficientemente simétricos, é possível determinar o campo elétrico utilizando somente a lei de gauss, que é a situação apresentada em todos os livros textos de eletromagnetismo \cite{hm} - \cite{jackson}. A equação \eqref{1} expressa o fato de que o campo eletrostático é conservativo, podendo, então, ser expresso como o gradiente de um campo escalar, i.e., %corrigir referencias do final do texto
+\par As equações \eqref{1} e \eqref{5}, com condições de contorno apropriadas, determinam completamente o campo elétrico \cite{tort}. Apenas para sistemas suficientemente simétricos, é possível determinar o campo elétrico utilizando somente a lei de gauss, que é a situação apresentada em todos os livros textos de eletromagnetismo \cite{hm} - \cite{jackson}. A equação \eqref{1} expressa o fato de que o campo eletrostático é conservativo, podendo, então, ser expresso como o gradiente de um campo escalar, i.e., %corrigir referencias do final do texto
 \\
 \begin{equation}\label{6}
 \vec{E}(\vec{r})= -\nabla\varphi(r)\;.
@@ -75,7 +75,7 @@ Apenas para sistemas suficientemente simétricos, é possível determinar o camp
 \begin{equation}\label{7}
 \nabla^{2}\varphi(r)=-\frac{\rho_{ext}(\vec{r})}{\epsilon}
 \end{equation}
-A princípio, o potencial elétrico pode ser determinado via equação de Poisson. Feito isso, podemos em seguida calcular o campo elétrico correspondente através da equação \eqref{6}. Esse foi o procedimento realizado na referência \cite{ramos}.
+\par A princípio, o potencial elétrico pode ser determinado via equação de Poisson. Feito isso, podemos em seguida calcular o campo elétrico correspondente através da equação \eqref{6}. Esse foi o procedimento realizado na referência \cite{ramos}.
 \par Vamos inicialmente fazer alguns comentários sobre o modelo adotado. A primeira coisa a ser salientada é que o sistema original é constituído de muitas partículas eletricamente carregadas que interagem entre si via forças coulombianas, constituindo, assim, um problema de muitos corpos de difícil solução. É necessário, então, adotar um modelo que torne o sistema tratável, do ponto de vista matemático, e ao mesmo tempo preserve suas características físicas essenciais. É admitido que o sistema é globalmente neutro, i.e, os números de cargas positivas e negativas são iguais. Esse tipo de sistema é comum em variadas áreas da física. Além de estruturas coloidais ele é encontrado em plasmas, em metais e semicondutores dopados \cite{platzman}. Uma maneira de abordar sistemas desse tipo é considerar uma carga positiva $Q$ mais uma nuvem de partículas de cargas $-q$ ao seu redor. As partículas negativas tendem a se concentrar em torno da carga positiva, reduzindo assim o campo elétrico criado pela carga $Q$. Esse fenômeno é conhecido como blindagem eletrostática \cite{kittel}.
 \par Para esse modelo, a densidade de carga pode ser escrita como
 \\
@@ -102,21 +102,23 @@ onde $k_{B}$ é a constante de Boltzmann e T é a temperatura absoluta. Para o m
 \begin{equation}\label{12}
 k^{2}_{o}=k^{2}_{TF}=\frac{mq^{2}K_{F}}{\epsilon\pi^{2}\hbar^{2}}
 \end{equation}
+\\
+\\
 onde $m$ é a massa das partículas, $K_{F}$ é o vetor de onda de Fermi e $\hbar$ é a constante reduzida de Planck. Usando \eqref{10} em \eqref{9} temos que
 \\
 \begin{equation}\label{13}
 [\nabla^{2}-k^{2}_{o}]\varphi(r)=-\frac{Q}{\epsilon}\delta(\vec{r})
 \end{equation}
-a qual, a menos do fator delta do lado direito (que é a forma correta de expressar a equação do modelo considerado), é semelhante à equação (45) da referência \cite{ramos}. Deve ser enfatizado que a hipótese \eqref{9} é fundamental para se obter a equação \eqref{13}, em outras palavras, essa equação nada mais é que a equação de Poisson escrita para um caso específico e não, como pode transparecer da referência \cite{ramos}, uma nova equação equivalente à equação de Poisson.
+a qual, a menos do fator delta do lado direito (que é a forma correta de expressar a equação do modelo considerado), é semelhante à equação (45) da referência \cite{ramos}. Deve ser enfatizado que a hipótese (9) é fundamental para se obter a equação \eqref{13}, em outras palavras, essa equação nada mais é que a equação de Poisson escrita para um caso específico e não, como pode transparecer da referência \cite{ramos}, uma nova equação equivalente à equação de Poisson.
 \par A solução da \eqref{13} pode ser obtida pelo método das funções de Green e é dada por 
 \\
 \begin{equation}\label{14}
-\varphi(r)=\frac{Q}{4\pi\epsilon}\frac{e^{k_{o}r}}{r}\;,
+\varphi(r)=\frac{Q}{4\pi\epsilon}\frac{e^{-k_{o}r}}{r}\;,
 \end{equation}
 que é denominado potencial eletrostático blindado e é a equação (22) da referência \cite{ramos}. Segundo os autores, essa equação "nos fornece o potencial elétrico efetivamente gerado por uma partícula carregada nesse modelo de sistema coloidal". Essa afirmação precisa ser melhor esclarecida. Na verdade, a distribuição de carga que gera o potencial dado pela equação \eqref{14} é uma carga pontual $Q$ mais a nuvem de carga negativa que a envolve [ver equação \eqref{20} adiante]. Desse modo, podemos considerar a partícula de carga $Q$ mais a nuvem negativa que a envolve como uma nova "partícula"(ou quasipartícula na linguagem da física da matéria condensada \cite{ribeiro}). Deve-se destacar que a carga associada a essa quasipartícula depende da extensão da dupla camada elétrica formada, relacionada ao parâmetro $k_{o}$ [ver equação \eqref{21} adiante]. Conhecido o potencial eltrostático, o campo elétrico pode ser facilmente calculado. tomando o gradiente da equação \eqref{14} encontramos
 \\
 \begin{equation}\label{15}
-\vec{E}(r)=\frac{Q}{4\pi\epsilon}(1+k_{o}r)\frac{e^{k_{o}r}}{r^{2}}\hat{r}
+\vec{E}(r)=\frac{Q}{4\pi\epsilon}(1+k_{o}r)\frac{e^{-k_{o}r}}{r^{2}}\hat{r}
 \end{equation}
 que é a equação (26) da referência \cite{ramos}. Contudo, é importante enfatizar que essa expressão não corresponde ao campo elétrico gerado por uma carga pontual, mas sim por uma carga $Q$ mais a nuvem negativa que a envolve, ou seja, um campo elétrico blindado. A densidade de carga associada ao campo elétrico descrito pela equação \eqref{15} pode ser calculado da seguinte forma. Fazendo $f(r)=e^{-k_{o}r}$ e $g(r) = 1/r$ e usando a identidade
 \\
@@ -126,12 +128,13 @@ que é a equação (26) da referência \cite{ramos}. Contudo, é importante enfa
 obtemos
 \\
 \begin{equation}\label{17}
-\nabla^{2}(\frac{e^{-k_{o}r}}{r}=\frac{k^{2}_{o}e^{-k_{o}r}}{r}-4\pi e^{-k_{o}r}\delta(r))
+\nabla^{2}\left(\frac{e^{-k_{o}r}}{r}\right)=\frac{k^{2}_{o}e^{-k_{o}r}}{r}-4\pi e^{-k_{o}r}\delta(r)
 \end{equation}
 onde usamos que
 \\
+\\
 \begin{equation}\label{18}
-\nabla^{2}(\frac{1}{r})=-4\pi\delta(r)\;.
+\nabla^{2}\left(\frac{1}{r}\right)=-4\pi\delta(r)\;.
 \end{equation}
 \par Utilizando as equações \eqref{14} e \eqref{17} na equação \eqref{7} obtemos
 \\
@@ -141,19 +144,19 @@ onde usamos que
 \par Podemos agora encontrar a densidade de carga total. Das equações \eqref{3} e \eqref{5} e utilizando a equação \eqref{19} obtemos
 \\
 \begin{equation}\label{20}
-\rho_{total}(r)=Q[\delta(r)-\frac{k^{2}_{o}}{4\pi r}]e^{-k_{o}r}
+\rho_{total}(r)=\frac{\epsilon_{o}}{\epsilon}\rho_{ext}(r)=\frac{\epsilon_{o}}{\epsilon}Q[\delta(r)-\frac{k^{2}_{o}}{4\pi r}]e^{-k_{o}r}\;.
 \end{equation}
 que é a carga total do sistema que gero o campo elétrico descrito pela equação \eqref{15}.
 \par A partir da equação \eqref{20} podemos obter várias informações sobre a carga total que gera o campo elétrico dado por \eqref{15}. A carga total contida em uma esfera de raio $R$ com centro na carga pontual $Q$ é facilmente calculada
 \\
 \begin{equation}\label{21}
-Q^{total}_{R}=\int^{R}_{0}\rho_{total}(r)d\Omega=\frac{\epsilon_{o}}{\epsilon}Q(k_{o}R+1)e^{-k_{o}r}
+Q^{total}_{R}=\int^{R}_{0}\rho_{total}(r)d\Omega=\frac{\epsilon_{o}}{\epsilon}Q(k_{o}R+1)e^{-k_{o}R}
 \end{equation}
-onde utilizamos coordenadas esféricas $d\Omega=4\pi r^{2}$ e a propriedade
+onde utilizamos coordenadas esféricas $d\Omega=4\pi r^{2}dr$ e a propriedade
 \\
-\begin{equation}
-\int{F(r)\delta(r-r_{o})d\Omega}=F(r_{o})\;.
-\end{equation}
+\begin{align}
+\int{F(r)\delta(r-r_{o})d\Omega}=F(r_{o})\;. %remove label from this equation.
+\end{align}
 \par Se fazemos $R\rightarrow 0$, temos que $Q^{total}_{R=0} = \epsilon_{o}Q/\epsilon$, o que mostra que há uma carga blindada na origem. Para $R \rightarrow \inf$ obtemos que $Q^{total}_{R}=0$, o que mostra que o sistema é globalmente neutro.
 \par Utilizando a equação \eqref{15} na lei de Gauss na forma integral e considerando uma superfície gaussiana esférica de raio $R$, encontramos que
 \\
