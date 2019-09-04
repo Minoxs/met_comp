@@ -10,7 +10,9 @@
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{lmodern}
+\usepackage[numbers]{natbib}
 
+\setlength{\bibsep}{0.0pt}
 \geometry{verbose,tmargin=2.57cm,bmargin=2.57cm,lmargin=1.6cm,rmargin=1.9cm}
 \pagestyle{empty}
 
@@ -37,7 +39,7 @@ Some remarks about results of an article published in this journal, Revista Bras
 e5408 (2018), concerning electrostatics applied to colloidal systems are presented.\\
 \textbf{Keywords:} electrostatic, screening.\\
 \end{abstract}
-\begin{multicols}{2}
+\begin{multicols}{2} %Estarei usando o espaço multicols até a ante-penúltima página. Pois, o comando \twocolumn separa o título do resto do texto.
 No artigo intitulado “Eletrostática em sistemas coloidais carregados” \cite{ramos}, é apresentado “um estudo da eletrostática aplicada aos sitemas coloidais” com o objetivo de possibilitar “uma visão mais ampla dos conceitos estudados em sala através de uma aplicação direta da teoria”. Ainda que pertinente, por aplicar conceitos familiares da eletrostática a uma siuação de interesse, o trabalho apresenta alguns problemas conceituais que discutiremos nessas notas. Apresentaremos uma crítica a maneira como na Referência \cite{ramos} são derivadas equações da eletrostática para um problema específico (sistemas coloidais) e como essas [equações (41) e (44) daquele trabalho] são interpretadas como uma possível nova lei de Gauss. Indo direto ao ponto, são apresentadas expressões que, segundo os autores, seriam “equações equivalentes para a lei de Gauss, tanto na forma integral como na forma diferencial”. Conforme mostraremos, trata-se apenas das equações básicas da eletrostática escritas para uma situação específica ou escritas de forma equivocada. \par
 Vamos começar fazendo uma breve revisão da eletrostática, cujas leis fundamentais (equações de Maxwell)
 para um meio dielétrico são dadas por \\
@@ -131,8 +133,10 @@ obtemos
 \nabla^{2}\left(\frac{e^{-k_{o}r}}{r}\right)=\frac{k^{2}_{o}e^{-k_{o}r}}{r}-4\pi e^{-k_{o}r}\delta(r)
 \end{equation}
 onde usamos que
-\\
-\\
+
+\end{multicols} %Aqui eu faço uma troca do espaço multicols por \twocolumn
+\twocolumn		%O motivo é que o espaço multicols mantém as duas colunas no mesmo tamanho, enquanto o \twocolumn permite que fiquem assimétricas.
+
 \begin{equation}\label{18}
 \nabla^{2}\left(\frac{1}{r}\right)=-4\pi\delta(r)\;.
 \end{equation}
@@ -154,10 +158,8 @@ Q^{total}_{R}=\int^{R}_{0}\rho_{total}(r)d\Omega=\frac{\epsilon_{o}}{\epsilon}Q(
 \end{equation}
 onde utilizamos coordenadas esféricas $d\Omega=4\pi r^{2}dr$ e a propriedade
 \\
-\begin{align}
-\int{F(r)\delta(r-r_{o})d\Omega}=F(r_{o})\;. %remove label from this equation.
-\end{align}
-\par Se fazemos $R\rightarrow 0$, temos que $Q^{total}_{R=0} = \epsilon_{o}Q/\epsilon$, o que mostra que há uma carga blindada na origem. Para $R \rightarrow \inf$ obtemos que $Q^{total}_{R}=0$, o que mostra que o sistema é globalmente neutro.
+$$\int{F(r)\delta(r-r_{o})d\Omega}=F(r_{o})\;.$$ %remove label from this equation.
+\par Se fazemos $R\rightarrow 0$, temos que $Q^{total}_{R=0} = \epsilon_{o}Q/\epsilon$, o que mostra que há uma carga blindada na origem. Para $R \rightarrow \infty$ obtemos que $Q^{total}_{R}=0$, o que mostra que o sistema é globalmente neutro.
 \par Utilizando a equação \eqref{15} na lei de Gauss na forma integral e considerando uma superfície gaussiana esférica de raio $R$, encontramos que
 \\
 \begin{equation}\label{22}
@@ -168,10 +170,12 @@ cujo valor para a carga total coincide com a equação \eqref{21}. De forma equi
 \begin{equation}\label{23}
 \oint_{S}{\vec{E}(r)\cdot d\vec{S}+k^{2}_{o}}\int_{\Omega}{\varphi(r)d\Omega}=\frac{Q}{\epsilon}
 \end{equation}
-cuja generalização para diversas cargas constituiria "uma nova lei de Gauss na forma integral" dada pela equação (41) da referência \cite{ramos}. A equação \eqref{23} é meramente uma expressão particular, válida para um caso específico, a saber, quando o campo $\vec{E}$ e o potencial $\varphi$ são dados pelas equações \eqref{15} e \eqref{14}, respectivamente.
+cuja generalização para diversas cargas constituiria "uma nova lei de Gauss na forma integral" dada pela equação (41) da referência \cite{ramos}. A equação \eqref{23} é meramente uma expressão particular, válida para um caso específico, a saber, quando o campo $\vec{E}$ e o potencial $\varphi$ são dados pelas equações \eqref{15} e \eqref{14}, respectivamente.\\
+\\
 \par Em resumo, no presente trabalho tecemos alguns comentários sobre resultados apresentados na referência \cite{ramos}, na qual se discute conceitos de eletrostática aplicados aos sistemas coloidais. No trabalho citado são obtidas expressões [equações (41) e (44)] as quais, segundo os autores, seriam equivalente à lei de Gauss "tanto em sua forma integral como na forma diferencial". Conforme mostramos, trata-se apenas da lei de Gauss escrita de uma forma específica para um problema específico. Também tecemos alguns comentários sobre o modelo utilizado para tratar um sistema de partículas carregadas, mas globalmente neutro, que produz o fenômeno da blindagem eletrostática.
 \\
 \begin{thebibliography}{10}
+\small{
 \bibitem{ramos}
 I.R.O. Ramos, J.P.M. Braga, J.V.A. Ataíde, A.P. Lima and L. Holanda, Revista Brasileira de Ensino de Física \textbf{40}, e5408 (2018).
 \bibitem{andrade}
@@ -192,6 +196,6 @@ P.M. Platzman and P.A. Wolff, \textit{Waves and Interactions in Solid State Plas
 C. Kittel, \textit{Introdução à Física do Estado Sólido} (LTC Editora, Rio de Janeiro, 2006), 8\textsuperscript{\underline{a}} ed., p. 341.
 \bibitem{ribeiro}
 A.V. Andrade-Neto, A. Ribeiro Neto and A. Jorio, Revista Brasileira de Ensino de Física \textbf{39}, e3310 (2017).
+}
 \end{thebibliography}
-\end{multicols}
 \end{document}

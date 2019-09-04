@@ -87,6 +87,8 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 INPUT /usr/share/texmf/tex/latex/lm/lmodern.sty
 INPUT /usr/share/texmf/tex/latex/lm/lmodern.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 INPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux
 INPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux
 OUTPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux
@@ -171,8 +173,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmr12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx12.tfm
-INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx10.tfm
-INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmri10.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmri9.tfm
 INPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux
 INPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.out
 INPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.out
@@ -180,7 +181,6 @@ INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
-INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmex10.pfb
@@ -193,7 +193,7 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmr6.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr7.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr8.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr9.pfb
-INPUT /usr/share/texmf/fonts/type1/public/lm/lmri10.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmri9.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb
