@@ -89,6 +89,8 @@ INPUT /usr/share/texmf/tex/latex/lm/lmodern.sty
 INPUT /usr/share/texmf/tex/latex/lm/lmodern.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 INPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux
 INPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux
 OUTPUT /home/mino/Desktop/projetos/met_comp/latex/Trabalho 1/Trabalho 1 - Grupo A.aux
@@ -170,6 +172,9 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/lmmi7.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/lmsy7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT /usr/share/texmf/tex/latex/lm/ot1lmtt.fd
+INPUT /usr/share/texmf/tex/latex/lm/ot1lmtt.fd
+INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmtt9.tfm
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmr12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx12.tfm
@@ -181,6 +186,7 @@ INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rmtt.enc
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmex10.pfb
@@ -197,4 +203,5 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmri9.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb

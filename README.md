@@ -21,3 +21,8 @@ Fiz algum progresso no _coin\_game_. :)
 Mais coisas sobre fortran, o professor começou em 3.2 e continuou até não sei aonde.
 
 Fiquei fazendo o trabalho 1 de latex
+
+## Aula do dia 04/09/2019
+_"Perdi"_ a aula, talvez eu pergunte à alguém o que aconteceu e adicione aqui depois.
+
+Terminei o trabalho 1 de latex, vou enviar para o professor via email pois o envio pelo moodle está com problemas (é um trabalho individual, que no moodle consta como em grupo, fazendo com que seja enviado para absolutamente todo mundo)

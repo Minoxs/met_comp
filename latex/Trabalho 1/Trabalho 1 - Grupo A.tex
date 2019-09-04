@@ -11,13 +11,42 @@
 \usepackage{hyperref}
 \usepackage{lmodern}
 \usepackage[numbers]{natbib}
+%Código para cabeçalho
+\usepackage{fancyhdr}
+\fancypagestyle{title} %Estou colocando meu nome no cabeçalho da primeira página, junto à créditos ao autor original
+{
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.5pt}
+\lhead{\small{
+	FIS01203 - Métodos Computacionais Da Física \\
+	Guilherme Wagner Correa\\
+	Instituto de Física, UFRGS
+}}
+\rhead{\small{
+	Artigo original pode ser encontrado em:\\ \url{http://dx.doi.org/10.1590/1806-9126-RBEF-2018-0243} \\
+	Reprodução do artigo de A.V Andrade-Neto, para fins educacionais.
+}}
+} 
+\fancypagestyle{creditos} %Nas demais páginas somente créditos ao autor original no cabeçalho
+{
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.5pt}
+\chead{\small{
+	Artigo original pode ser encontrado em: \url{http://dx.doi.org/10.1590/1806-9126-RBEF-2018-0243} \\
+	Reprodução (usando \LaTeX) do artigo de A.V Andrade-Neto, para fins educacionais.
+}}
+}
+%%%%%%%%%%%%
 
 \setlength{\bibsep}{0.0pt}
 \geometry{verbose,tmargin=2.57cm,bmargin=2.57cm,lmargin=1.6cm,rmargin=1.9cm}
-\pagestyle{empty}
+
+\fancyfoot[C]{}
+\pagestyle{creditos}
 
 %Title information%
-\title{\textbf{Comentários sobre o artigo ``Eletrostática em sistemas coloidais carregados"}\footnote{Este artigo é uma reprodução do artigo original de A.V Andrade-Neto}\\
+\title{\textbf{Comentários sobre o artigo ``Eletrostática em sistemas coloidais carregados"}\footnote{Este artigo é uma reprodução do original "Comentários sobre o artigo “Eletrostática em sistemas
+coloidais carregados” de A.V Andrade-Neto}\\
 \vspace{5pt}\small{\textbf{Comments about the paper Electrostatics in charged colloidal systems}}\vspace{-3pt}}
 \author{A.V. Andrade-Neto\textsuperscript{1}\vspace{7pt}\\ 
 \small{\textsuperscript{1}Universidade Estadual de Feira de Santana, Departamento de Física, Feira de Santana, BA, Brasil}\vspace{6pt}}
@@ -29,7 +58,7 @@
 \renewcommand{\abstractname}{}
 \frenchspacing
 \maketitle
-\thispagestyle{empty}
+\thispagestyle{title}
 \begin{abstract}
 Comentam-se nessas notas resultados obtidos em trabalho publicado neste periódico sobre a eletrostática em
 sistemais coloidais, Revista Brasileira de Ensino de Física \textbf{40}, e5408 (2018).\\
@@ -73,7 +102,7 @@ onde $\epsilon$ é a permissividade elétrica do material e no caso geral é uma
 \vec{E}(\vec{r})= -\nabla\varphi(r)\;.
 \end{equation}
 \par Isso permite combinar as equações vetoriais \eqref{1} e \eqref{5} em uma única equação diferencial escalar. Utilizando \eqref{6} em \eqref{5} obtemos a equação de Poisson
-\\
+
 \begin{equation}\label{7}
 \nabla^{2}\varphi(r)=-\frac{\rho_{ext}(\vec{r})}{\epsilon}
 \end{equation}
