@@ -27,3 +27,11 @@ _"Perdi"_ a aula, talvez eu pergunte à alguém o que aconteceu e adicione aqui 
 
 Terminei o trabalho 1 de latex, ~vou enviar para o professor via email pois o envio pelo moodle está com problemas (é um trabalho individual, que no moodle consta como em grupo, fazendo com que seja enviado para absolutamente todo mundo)~
 Enviei via moodle. Aparentemente o professor queria fazer a entrega do trabalho desse jeito mesmo. Que bizarro.
+
+## Aula do dia 09/09/2019
+Loops and the like on Fortran...
+Capítulo 5 da apostila de Fortran moderno
+	**Cycle = Continue do Python3**
+	**exit = break**
+Cheguei mais pro fim da aula kk
+#### Fazer lista de exercícios assim que possível!!
