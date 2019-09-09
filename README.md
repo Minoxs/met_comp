@@ -35,3 +35,9 @@ Capítulo 5 da apostila de Fortran moderno
 	**exit = break**
 Cheguei mais pro fim da aula kk
 #### Fazer lista de exercícios assim que possível!!
+
+## Estudando na biblioteca 09/09/2019
+"read *, a" == "a = input()" <- porém esse input serve apenas para números
+"print *, 'Valor lido:',a" == "print('Valor lido:{}'.format(a))"
+"kind(a)" == "type(a)"
+expressões matemáticas funcionam tanto quanto em python.
