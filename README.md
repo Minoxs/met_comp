@@ -29,15 +29,15 @@ Terminei o trabalho 1 de latex, ~vou enviar para o professor via email pois o en
 Enviei via moodle. Aparentemente o professor queria fazer a entrega do trabalho desse jeito mesmo. Que bizarro.
 
 ## Aula do dia 09/09/2019
-Loops and the like on Fortran...
-Capítulo 5 da apostila de Fortran moderno
-	**Cycle = Continue do Python3**
-	**exit = break**
-Cheguei mais pro fim da aula kk
+Loops and the like on Fortran...   
+Capítulo 5 da apostila de Fortran moderno   
+	**Cycle = Continue do Python3**   
+	**exit = break**   
+Cheguei mais pro fim da aula kk   
 #### Fazer lista de exercícios assim que possível!!
 
 ## Estudando na biblioteca 09/09/2019
-"read *, a" == "a = input()" <- porém esse input serve apenas para números
-"print *, 'Valor lido:',a" == "print('Valor lido:{}'.format(a))"
-"kind(a)" == "type(a)"
+"read *, a" == "a = input()" <- porém esse input serve apenas para números   
+"print *, 'Valor lido:',a" == "print('Valor lido:{}'.format(a))"   
+"kind(a)" == "type(a)"   
 expressões matemáticas funcionam tanto quanto em python.
