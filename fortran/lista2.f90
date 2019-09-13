@@ -1,8 +1,10 @@
 program lista2
 implicit none
 
+integer, dimension(:), allocatable :: array
 integer(kind=16) :: next
-integer :: com, even, odd, fst, snd, thd, fth, xaxis, yaxis, lim1, one, two
+integer :: com, even, odd, fst, snd, thd, fth, xaxis, yaxis, lim1, one, two, n, cur, val
+integer :: pick, tl, tr, size, test, cursize, start, end, cur2, prob
 real :: pi = 3.1415926535897932384626433832795028841971693993751
 real :: a, b, c, a1, b1, c1, raiz1, raiz2, delta, V, Z, theta, I, P, Q, S, F, n1, n2, theta1, theta2, left, X, Y
 
@@ -140,7 +142,8 @@ endif
 enddo
 print *, "Pares Ordenados em: Primeiro qd, Segundo qd, Terceiro qd, Quarto qd, X axis and Y axis, respectivamente"
 print *, "            ",fst,snd,thd,fth,xaxis,yaxis
-
+!
+!
 else if (com .EQ. 7) then
 x = 0
 do while(x .NE. -1)
@@ -156,7 +159,8 @@ endif
 print *, (x/(1+x))
 exit
 enddo
-
+!
+!
 else if (com .EQ. 8) then
 print *, "Escolha o índice limite da sequência"
 read *, lim1
@@ -181,6 +185,116 @@ fst = snd
 snd = next
 x = x + 1
 enddo
+!
+!
+else if (com .EQ. 9) then
+lim1 = 0
+
+do while (lim1 .LE. 0)
+print *, "Escolha a linha limite do triângulo. (Número inteiro maior que 0)"
+print *, "O programa sempre vai ir até uma linha par, pois eu sou preguiçoso"
+read *, lim1
+enddo
+
+if (MOD(lim1,2) .EQ. 1) then
+lim1 = lim1 + 1
+endif
+
+val = (lim1+1)*(lim1/2)
+
+allocate(array(val))
+
+n = 1
+cur = 1
+pick = 1
+do while (n .LE. lim1)
+
+if (cur .EQ. 1) then
+array(pick) = 1
+cur = cur + 1
+pick = pick + 1
+endif
+
+do while (cur .LT. n)
+tl = array(pick-n)
+tr = array(pick+1-n)
+array(pick) = (tl+tr)
+cur = cur + 1
+pick = pick + 1
+enddo
+
+if (cur .EQ. n) then
+array(pick) = 1
+cur = cur + 1
+pick = pick + 1
+endif
+
+cur = 1
+n = n + 1
+enddo
+
+fth = 1
+fst = 1
+thd = 1
+do even = 1, n-1
+print *, array(fst:thd) !Esse bloco é para printar o triangulo
+fst = thd + 1
+thd = thd + fth + 1
+fth = fth + 1
+enddo
+
+deallocate(array) !Desalocar o array para que possa ser reutilizado sem reiniciar o programa e salvar memória
+!
+!
+else if (com .EQ. 10) then
+lim1 = 0
+size = 0
+prob = 0
+cursize = 2
+cur = 3
+do while (lim1 .LE. 3)
+print *, "Insira um número inteiro maior que 3"
+read *, lim1
+enddo
+
+if (MOD(lim1,2) .EQ. 1) then
+size = (lim1+1)/2
+else
+size = lim1/2
+endif
+
+allocate(array(size))
+array(1) = 2
+array(2) = 3
+do test=4,lim1
+
+if (MOD(test,2) .EQ. 0) then
+cycle
+endif
+
+	prob = 0
+	do start = 1, cursize
+		if (MOD(test,array(start)) .EQ. 0) then
+			exit
+		else
+			prob = prob + 1
+		endif
+	enddo
+
+if (prob .EQ. cursize) then
+array(cur) = test
+cursize = cursize + 1
+cur = cur + 1
+endif
+enddo
+
+do test = 1, cursize
+if (array(test) .EQ. 0) then
+exit
+endif
+print *, array(test)
+enddo
+deallocate(array)
 
 else
 print *, com,"não corresponde à um exercício da lista 2."
