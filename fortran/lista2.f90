@@ -7,6 +7,7 @@ integer :: com, even, odd, fst, snd, thd, fth, xaxis, yaxis, lim1, one, two, n, 
 integer :: pick, tl, tr, size, test, cursize, start, end, cur2, prob
 real :: pi = 3.1415926535897932384626433832795028841971693993751
 real :: a, b, c, a1, b1, c1, raiz1, raiz2, delta, V, Z, theta, I, P, Q, S, F, n1, n2, theta1, theta2, left, X, Y
+real :: tstart, tend
 
 com = 1
 do while (com .GT. 0)
@@ -266,6 +267,7 @@ endif
 allocate(array(size))
 array(1) = 2
 array(2) = 3
+call cpu_time(tstart)
 do test=4,lim1
 
 if (MOD(test,2) .EQ. 0) then
@@ -294,6 +296,8 @@ exit
 endif
 print *, array(test)
 enddo
+call cpu_time(tend)
+print '("Time = ",f6.3," seconds.")',tend-tstart
 deallocate(array)
 
 else
