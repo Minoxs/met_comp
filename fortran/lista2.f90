@@ -5,9 +5,22 @@ integer, dimension(:), allocatable :: array
 integer(kind=16) :: next
 integer :: com, even, odd, fst, snd, thd, fth, xaxis, yaxis, lim1, one, two, n, cur, val
 integer :: pick, tl, tr, size, test, cursize, start, end, cur2, prob
-real :: pi = 3.1415926535897932384626433832795028841971693993751
+integer :: count
+real, parameter :: pi = 3.1415926535897932384626433832795028841971693993751
+real, parameter :: c14 = 0.00012097
+real, parameter :: euler = 2.7182818284590452353602875
 real :: a, b, c, a1, b1, c1, raiz1, raiz2, delta, V, Z, theta, I, P, Q, S, F, n1, n2, theta1, theta2, left, X, Y
-real :: tstart, tend
+real :: tstart, tend, ftemp, ctemp, ktemp, rho, epsilon, apg, per, lcos, bcos, tempo, Qfinal, Qzero
+character(len=80) :: crc
+
+print *, "1 - Maior Valor", "9 - Triângulo de Pascal"
+print *, "2 - Raizes de um Polinômio Grau 2", "10 - Números Primos"
+print *, "3 - Calculando coisas de um Circuito", "11 - String ordenada"
+print *, "4 - Lei de Snell", "12 - Conversão temperatura F -> K"
+print *, "5 - Contador de Par/Ímpar", "13 - Calculando órbitas de Satélites"
+print *, "6 - Pares ordenados", "14 - Datação por Carbono-14"
+print *, "7 - Inverso +1", "15 - Calculando o dia do ano"
+print *, "8 - Sequência de Fibonacci", "16 - Desenvolvimento da série da função seno"
 
 com = 1
 do while (com .GT. 0)
@@ -299,6 +312,54 @@ enddo
 call cpu_time(tend)
 print '("Time = ",f6.3," seconds.")',tend-tstart
 deallocate(array)
+!
+!
+else if (com .EQ. 11) then
+print *, "Digite uma string de até 80 caracteres."
+read *, crc
+print *, "Faço depois."
+!
+!
+else if (com .EQ. 12) then
+print *, "Digite uma temperatura em F."
+read *, ftemp
+ctemp = (ftemp - 32.)*(5./9.)
+ktemp = ctemp + 273.15
+print '("Ftemp = ",f5.2,", Ctemp = ",f5.2,", Ktemp = ",f5.2)', ftemp,ctemp,ktemp
+!
+!
+else if (com .EQ. 13) then
+print *, "Escolha valores para o P e epsilon respectivamente."
+read *, rho, epsilon
+lcos = epsilon * 1
+bcos = epsilon * -1
+if (lcos .GT. bcos) then
+apg = (rho)/(1-lcos)
+per = (rho)/(1-bcos)
+else if (bcos .GT. lcos) then
+apg = (rho)/(1-bcos)
+per = (rho)/(1-lcos)
+endif
+print '("Apogeu: ",f5.2,", Perigeu: ",f5.2)', apg, per
+!
+!
+else if (com .EQ. 14) then
+print *, "Insira a percentagem medida remanescente de Carbono-14."
+read *, Qzero
+tempo = (LOG(Qzero/100)/c14)
+print '("Ser morto há ",f5.2," anos.")', ABS(tempo)
+!
+!
+else if (com .EQ. 15) then
+print *, "Ainda não pronto"
+!
+!
+else if (com .EQ. 16) then
+print *, "Ainda não foi feito."
+!
+!
+
+
 
 else
 print *, com,"não corresponde à um exercício da lista 2."
