@@ -41,3 +41,8 @@ Cheguei mais pro fim da aula kk
 "print *, 'Valor lido:',a" == "print('Valor lido:{}'.format(a))"   
 "kind(a)" == "type(a)"   
 expressões matemáticas funcionam tanto quanto em python.
+
+## Aula do dia 18/09/2019
+Capítulo 6 da apostila de fortran sobre matrizes e coisas do tipo.   
+more <nome_do_arquivo> | wc <- Conta a quantidade de Linhas/Palavras/Caracteres em um arquivo de texto.
+

@@ -2,15 +2,16 @@ program lista2
 implicit none
 
 integer, dimension(:), allocatable :: array
-integer(kind=16) :: next
+integer(kind=16) :: next, oneth, sndth
 integer :: com, even, odd, fst, snd, thd, fth, xaxis, yaxis, lim1, one, two, n, cur, val
 integer :: pick, tl, tr, size, test, cursize, start, end, cur2, prob
 integer :: count
 real, parameter :: pi = 3.1415926535897932384626433832795028841971693993751
 real, parameter :: c14 = 0.00012097
 real, parameter :: euler = 2.7182818284590452353602875
-real :: a, b, c, a1, b1, c1, raiz1, raiz2, delta, V, Z, theta, I, P, Q, S, F, n1, n2, theta1, theta2, left, X, Y
-real :: tstart, tend, ftemp, ctemp, ktemp, rho, epsilon, apg, per, lcos, bcos, tempo, Qfinal, Qzero
+real :: a, b, c, a1, b1, c1, raiz1, raiz2, delta, V, Z, I, P, Q, S, F, n1, n2, theta1, theta2, left, X, Y
+real :: ftemp, ctemp, ktemp, rho, epsilon, apg, per, lcos, bcos, Qfinal, Qzero
+real(kind=16) :: func, fact, theta, tstart, tend, tempo
 character(len=80) :: crc
 
 print *, "1 - Maior Valor                      | 9 - Triângulo de Pascal"
@@ -25,7 +26,7 @@ print *, "8 - Sequência de Fibonacci           | 16 - Desenvolvimento da série
 com = 1
 do while (com .GT. 0)
 !Escolhendo o exercício
-print *, "Escolha o exercício. (Digite 0 para sair)"
+print *, "Escolha o exercício. (0 = Sair, 20 = Lista de Exercícios)"
 read *, com
 
 if (com .LE. 0) then
@@ -184,8 +185,8 @@ print *, "Valor limite inválido"
 exit
 endif
 
-fst = 1
-snd = 1
+oneth = 1
+sndth = 1
 x = 3
 next = 0
 
@@ -193,10 +194,10 @@ print *, 1
 print *, 1
 
 do while(x .LE. lim1)
-next = fst + snd
+next = oneth + sndth
 print *, next
-fst = snd
-snd = next
+oneth = sndth
+sndth = next
 x = x + 1
 enddo
 !
@@ -355,10 +356,37 @@ print *, "Ainda não pronto"
 !
 !
 else if (com .EQ. 16) then
-print *, "Ainda não foi feito."
-!
-!
+print *, "Inisra o x de Sen(x) e aonde truncar a série."
+read *, x, n
+theta = 0
+do test=0,n
 
+fact = 1
+do val =1,(2*test+1)
+fact = fact * val
+enddo
+
+func = (((-1)**test)*(x**((2*test)+1)))/(fact)
+theta = theta + func
+print *, "N = ",test
+print *, "Sen(x) = ", SIN(x), "Curent Series Sum = ",theta
+print *, "Diference = ", SIN(x)-theta
+print *, "  "
+
+enddo
+!
+!
+else if (com .EQ. 20) then
+print *, "1 - Maior Valor                      | 9 - Triângulo de Pascal"
+print *, "2 - Raizes de um Polinômio Grau 2    | 10 - Números Primos"
+print *, "3 - Calculando coisas de um Circuito | 11 - String ordenada"
+print *, "4 - Lei de Snell                     | 12 - Conversão temperatura F -> K"
+print *, "5 - Contador de Par/Ímpar            | 13 - Calculando órbitas de Satélites"
+print *, "6 - Pares ordenados                  | 14 - Datação por Carbono-14"
+print *, "7 - Inverso +1                       | 15 - Calculando o dia do ano"
+print *, "8 - Sequência de Fibonacci           | 16 - Desenvolvimento da série da função seno"
+!
+!
 
 
 else
