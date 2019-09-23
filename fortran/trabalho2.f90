@@ -4,7 +4,8 @@ implicit none
 integer :: com !Variável de comando
 integer :: pri, seg, ter, qua, xaxis, yaxis !Variáveis exercício 1
 real :: input1, input2 !Variáveis de input
-
+character(len=3) :: ninput !Número que será digitado pelo usuário no Exercício 2
+character(len=12) :: result !Número romano convertido, Exercício 2
 
 print *, "1 - Pontos no Plano Cartesiano"
 print *, "2 - Coversão Decimal-Romana"
@@ -17,12 +18,11 @@ read *, com
 !
 if (com .LE. 0) then
 exit !Medida de segurança
-endif
 !
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !Exercício 1!
-if (com .EQ. 1) then
+else if (com .EQ. 1) then
 pri = 0
 seg = 0
 ter = 0 !É necessário reiniciar as variáveis cada 
@@ -68,8 +68,25 @@ else if (input1 .LT. 0) then !Quando X < 0
 	endif
 endif
 enddo
-endif
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!Exercício 2!
+else if (com .EQ. 2) then
+print *, "Digite um número de no máximo 3 digitos."
+read *, ninput
+
+print *, ninput(1), ninput(2), ninput(3)
+
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+endif
 enddo
 print *, "Terminando programa..."
 end program trabalho2
