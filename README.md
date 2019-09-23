@@ -46,3 +46,8 @@ expressões matemáticas funcionam tanto quanto em python.
 Capítulo 6 da apostila de fortran sobre matrizes e coisas do tipo.   
 more <nome_do_arquivo> | wc <- Conta a quantidade de Linhas/Palavras/Caracteres em um arquivo de texto.
 
+## Aula do dia 23/09/2019
+Fiquei pouquinho tempo pq tava de saco cheio o3o  
+Professor passou o capítulo 7 da apostila de fortran  
+#### Lista de exercícios 1 pronta, 2 basicamente pronta
+### Trabalho 2 concluído!!

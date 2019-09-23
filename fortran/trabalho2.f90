@@ -9,9 +9,10 @@ character(len=4), dimension(3) :: res_piece !Fortran é chato de lidar com strin
 character(len=12) :: result !Número romano convertido, Exercício 2
 integer :: j !Variável do "do" no exercício 2.
 
-
+print *, "--. ..- .. .-.. .... . .-. -- ."
 print *, "1 - Pontos no Plano Cartesiano"
 print *, "2 - Coversão Decimal-Romana"
+print *, ".-- .- --. -. . .-. -.-. --- .-. .-. . .-"
 
 com = 1 
 do while (com .GT. 0) !Escolhendo qual parte do código rodar.
@@ -28,7 +29,7 @@ exit !Medida de segurança
 else if (com .EQ. 1) then
 pri = 0
 seg = 0
-ter = 0 !É necessário reiniciar as variáveis cada 
+ter = 0 !É necessário reiniciar as variáveis cada vez que for rodar essa parte do programa
 qua = 0
 xaxis = 0
 yaxis = 0
@@ -46,6 +47,7 @@ print *, "Terceiro Quadrante:", ter
 print *, "Quarto Quadrante:", qua
 print *, "Eixo X:", xaxis
 print *, "Eixo Y:", yaxis
+print *, " "
 print *, " "
 print *, " "
 exit
@@ -86,7 +88,7 @@ ninput(2:2) = ninput(1:1)
 ninput(1:1) = " "
 enddo
 
-do j = 1, 3
+do j = 1, 3 !Esse "do" que é responsável por realmente converter os números
 SELECT CASE (ninput(j:j))
 case (" ")
 res_piece(j) = " "
@@ -170,8 +172,13 @@ END SELECT
 enddo
 result = trim(res_piece(1))//trim(res_piece(2))//trim(res_piece(3))
 print *, result
+print *, " "
+print *, " "
+print *, " "
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 endif
 enddo
 print *, "Terminando programa..."
 end program trabalho2
+!Guilherme Wagner Correa
+!Instituto de Física, UFRGS.
