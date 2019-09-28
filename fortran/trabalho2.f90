@@ -79,8 +79,15 @@ enddo
 else if (com .EQ. 2) then
 result = "ba"
 ninput = ""
-print *, "Digite um número de no máximo 3 digitos."
+do while (ninput .NE. "000")
+print *, "Digite um número de no máximo 3 digitos. (Digite '000' para sair)"
 read *, ninput
+
+if (ninput .EQ. "000") then
+print *, "Voltando à seleção de exercício."
+print *, " "
+exit
+endif
 
 do while (ninput(3:3) .EQ. " ") !Essa parte move o número para a casa apropriada, exemplo: 12 é lido como 120
 ninput(3:3) = ninput(2:2)       !Esse "do" move para que o 1 fique na dezena, e o 2 na unidade.
@@ -175,6 +182,7 @@ print *, result
 print *, " "
 print *, " "
 print *, " "
+enddo
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 endif
 enddo
