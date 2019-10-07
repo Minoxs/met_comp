@@ -6,6 +6,8 @@ class Object:
 		self.name = "OBJETO NÚMERO " + str(num) #Vai self. antes do nome da variável, 
 		self.n = random.randint(1,100)			# 		pois está mudando a variável do PRÓPRIO objeto.
 		print("Initialized") #Para demonstrar que esse bloco de código está sendo rodado, isso sera printado.
+	def add(self, num):
+		self.n += num
 
 lista = []
 for i in range(3):
@@ -24,5 +26,7 @@ print(lista[0].name)
 lista[0].n = 20 #Modificando uma variável do objeto
 print(lista[0].n)
 #
-
+print(lista[1].name + " added 5 to N.")
+lista[1].add(5)
+print(lista[1].n)
 a = input("Press ENTER to close.") #Para que o programa não feche imediatamente após terminar.
