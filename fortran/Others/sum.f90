@@ -15,4 +15,6 @@ piece = 1./(real(cur)**s)
 sum = sum + piece
 enddo
 
+print *, sum
+
 end program zeta
