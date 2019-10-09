@@ -49,5 +49,10 @@ more <nome_do_arquivo> | wc <- Conta a quantidade de Linhas/Palavras/Caracteres 
 ## Aula do dia 23/09/2019
 Fiquei pouquinho tempo pq tava de saco cheio o3o  
 Professor passou o capítulo 7 da apostila de fortran  
-#### Lista de exercícios 1 pronta, 2 basicamente pronta
-### Trabalho 2 concluído!!
+#### Lista de exercícios 1 pronta, 2 basicamente pronta  
+### Trabalho 2 concluído!!  
+### Trabalhos requerem que tenha um certo cabeçalho que foi disponibilizado no moodle, não esquecer pois vale 10%-15% da nota (wtf??)  
+
+## Aula do dia 09/10/2019
+Começando a apostila de intro a fisica computacional (talvez agora fique mais divertido :B)  
+
