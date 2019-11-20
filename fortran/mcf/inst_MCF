@@ -1,0 +1,49 @@
+#!/bin/bash
+## Cria módulos e bibliotecas para as rotinas descritas na Apostila:
+## Introdução à Física Computacional
+
+fc=gfortran
+biblio=MCF
+ldir=include
+
+ext_subprog="bisec.f90
+dfdx_rich.f90
+fal_pos_mod.f90
+gauss_chebyshev.f90
+muller.f90
+newton_bisec.f90
+pntmed_inf_rom.f90
+pntmed_rom.f90
+poly_dn.f90
+qpmi_rom.f90
+qpms_rom.f90
+quad_rom.f90
+rk4.f90
+secante.f90
+straight_sort.f90
+trapez_rom.f90"
+
+# Cria diretório (caso não exista) para módulos e bibliotecas
+if [ ! -d $ldir ] ; then
+   echo -n 'Criando diretório para módulos e bibliotecas... '
+   mkdir $ldir
+   echo '  (pronto)'
+fi
+
+echo -n 'Compilando módulos... '
+$fc -c -J$ldir MCF_Mod.f90 MCF_SMod.f90
+echo '                            (pronto)'
+
+echo 'compilando subprogramas externos... '
+for ff in $ext_subprog
+do
+   echo $fc -c -I$ldir $ff
+   $fc -c -I$ldir $ff
+done
+echo '(pronto)'
+
+echo -n 'criando biblioteca... '
+ar r $ldir/lib$biblio.a *.o
+echo '  (pronto)'
+
+rm -f *.o
