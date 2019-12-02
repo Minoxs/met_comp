@@ -3,7 +3,8 @@ from matplotlib import pyplot as plib #Para produzir os gráficos
 import math #Apenas para a função fatorial(usada em J0)
 from decimal import * #Estou usando a biblioteca decimal para ter um numero arbitrário de digitos significativos
 import time #Usado para capturar o tempo decorrido entre cálculos
-import numpy as np #Para lidar com as tabelas e gráficos
+import csv #Para lidar com as tabelas e gráficos
+from pathlib import Path as find #Usado para encontrar e salvar o arquivo
 
 getcontext().prec = 1000 #Quantidade de casas decimais dos objetos decimais; Para maiores valores de X, esse valor precisa ser aumentado.
 
@@ -52,7 +53,6 @@ def default_tests(): #Roda 3 testes usando valores que encontrei na internet
 	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
 ###############################################################################################################
 
-
 def my_j0(x): #Função de Bessel J0
 	kmax = 300
 	J0 = Decimal(0)
@@ -74,34 +74,46 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 	return (dy/dx)
 
 def tabelar(xi,xf):
-	x = []
-	j0 = []
-	j1 = []
 	start_time = time.time()
+	prim = xi
 	o = open("PLOT_DATA_{}_{}.csv".format(xi,xf),"w+")
 	o.write("X,J0,J1 \n")
 	o.close()
+	t = open("Tabela_J0_{}_{}.csv".format(prim,xf),"w+")
+	t.write("x,J0,J1 \n")
+	t.close()
 	while xi <= xf:
-		x.append(xi)
 		calc_j0 = my_j0(xi)
-		j0.append(calc_j0)
 		calc_j1 = my_j1(xi,calc_j0)
-		j1.append(calc_j1)
-		xi += Decimal("0.1")
-		o = open("PLOT_DATA_{}_{}.csv".format(x[0],xf),"a+")
-		o.write("{},{},{} \n".format(xi,calc_j0,calc_j1))
+		o = open("PLOT_DATA_{}_{}.csv".format(prim,xf),"a+") #Esse arquivo contém mais dígitos significativos; para ser usado no gráfico
+		o.write("{},{},{} \n".format(xi,calc_j0,calc_j1))	 #Imprático de ser lido
 		o.close()
+		t = open("Tabela_J0_{}_{}.csv".format(prim,xf),"a+") 				 #Esse arquivo contém ~58 casas decimais
+		t.write("{},{},{} \n".format(xi,str(calc_j0)[:60],str(calc_j1)[:60]))#Melhor de ser lido
+		t.close()
+		xi += Decimal("0.1")
 	end_time = time.time()
-	o = open("Tabela_J0_{}_{}.csv".format(x[0],xf),"w+")
-	o.write("x,J0,J1 \n")
-	for i in range(len(x)):
-		o.write("{},{},{} \n".format(str(x[i])[:60],str(j0[i])[:60],str(j1[i])[:60]))
+	print("Pronto! Tempo decorrido: {}".format(end_time-start_time))
+	return end_time-start_time
+
+def pdfplot(graf):
+	o = open(graf,"r")
+	graf = list(csv.reader(o,delimiter=","))
 	o.close()
+	x  = [Decimal(graf[i][0]) for i in range(1,len(graf))]
+	j0 = [Decimal(graf[i][1]) for i in range(1,len(graf))]
+	j1 = [Decimal(graf[i][2]) for i in range(1,len(graf))]
 	plib.plot(x,j0)
 	plib.plot(x,j1)
-	plib.savefig("Plot_{}_ate_{}.pdf".format(x[0],xf))
-	return [x,j0,j1,end_time-start_time]
+	plib.savefig('Plot_{}_{}.pdf'.format(x[0],x[-1]))
 
 ####################################################################################
-#default_tests()
-tabelar(-50,50)
+#times = []
+#for i in range(1,101):
+#	times.append(tabelar(0,i))
+#plib.plot(list(range(1,101)),times)
+#plib.savefig("timetaken.pdf")
+#tabelar(-100,100)
+#grafplot()
+tabelar(-5,5)
+pdfplot("Tabela_J0_-5_5.csv")
