@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-from matplotlib import pyplot as plib
+from matplotlib import pyplot as plib #Para produzir os gráficos
 import math #Apenas para a função fatorial(usada em J0)
 from decimal import * #Estou usando a biblioteca decimal para ter um numero arbitrário de digitos significativos
 import time #Usado para capturar o tempo decorrido entre cálculos
-
+import numpy as np #Para lidar com as tabelas e gráficos
 
 getcontext().prec = 1000 #Quantidade de casas decimais dos objetos decimais; Para maiores valores de X, esse valor precisa ser aumentado.
-
 
 ####Funções de Teste###############################################################################################################
 def Test(x_conhecido,resj0_conhecido,resj1_conhecido): #Função para testar as funções de bessel com valores conhecidos
@@ -79,21 +78,30 @@ def tabelar(xi,xf):
 	j0 = []
 	j1 = []
 	start_time = time.time()
+	o = open("PLOT_DATA_{}_{}.csv".format(xi,xf),"w+")
+	o.write("X,J0,J1 \n")
+	o.close()
 	while xi <= xf:
 		x.append(xi)
 		calc_j0 = my_j0(xi)
 		j0.append(calc_j0)
-		j1.append(my_j1(xi,calc_j0))
+		calc_j1 = my_j1(xi,calc_j0)
+		j1.append(calc_j1)
 		xi += Decimal("0.1")
+		o = open("PLOT_DATA_{}_{}.csv".format(x[0],xf),"a+")
+		o.write("{},{},{} \n".format(xi,calc_j0,calc_j1))
+		o.close()
 	end_time = time.time()
+	o = open("Tabela_J0_{}_{}.csv".format(x[0],xf),"w+")
+	o.write("x,J0,J1 \n")
+	for i in range(len(x)):
+		o.write("{},{},{} \n".format(str(x[i])[:60],str(j0[i])[:60],str(j1[i])[:60]))
+	o.close()
+	plib.plot(x,j0)
+	plib.plot(x,j1)
+	plib.savefig("Plot_{}_ate_{}.pdf".format(x[0],xf))
 	return [x,j0,j1,end_time-start_time]
 
 ####################################################################################
 #default_tests()
-a = tabelar(0,10)
-print(a[:-1])
-print("{}s decorrido".format(a[-1]))
-
-plib.plot(a[0],a[1])
-plib.plot(a[0],a[2])
-plib.show()
+tabelar(-50,50)
