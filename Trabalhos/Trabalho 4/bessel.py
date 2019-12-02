@@ -5,7 +5,7 @@ from decimal import * #Estou usando a biblioteca decimal para ter um numero arbi
 import time #Usado para capturar o tempo decorrido entre cálculos
 
 
-getcontext().prec = 2000 #Quantidade de casas decimais dos objetos decimais; Para maiores valores de X, esse valor precisa ser aumentado.
+getcontext().prec = 1000 #Quantidade de casas decimais dos objetos decimais; Para maiores valores de X, esse valor precisa ser aumentado.
 
 
 ####Funções de Teste###############################################################################################################
@@ -55,9 +55,11 @@ def default_tests(): #Roda 3 testes usando valores que encontrei na internet
 
 
 def my_j0(x): #Função de Bessel J0
-	kmax = 1000
+	kmax = 300
 	J0 = Decimal(0)
 	x = Decimal(x)
+	if x == 0:
+		return Decimal(1)
 	for k in range(kmax+1):
 		print("Calculando J0({}): {}%".format(x,round((k*100/kmax),2)))
 		J0 += Decimal(((-x**2)**k))/Decimal(((4**k)*(math.factorial(k)**2)))
@@ -72,6 +74,26 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 		dy = my_j0(x+dx) - calculado
 	return (dy/dx)
 
+def tabelar(xi,xf):
+	x = []
+	j0 = []
+	j1 = []
+	start_time = time.time()
+	while xi <= xf:
+		x.append(xi)
+		calc_j0 = my_j0(xi)
+		j0.append(calc_j0)
+		j1.append(my_j1(xi,calc_j0))
+		xi += Decimal("0.1")
+	end_time = time.time()
+	return [x,j0,j1,end_time-start_time]
 
 ####################################################################################
-default_tests()
+#default_tests()
+a = tabelar(0,10)
+print(a[:-1])
+print("{}s decorrido".format(a[-1]))
+
+plib.plot(a[0],a[1])
+plib.plot(a[0],a[2])
+plib.show()
