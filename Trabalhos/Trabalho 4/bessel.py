@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 from matplotlib import pyplot as plib #Para produzir os gráficos
-import math #Apenas para a função fatorial(usada em J0)
+from math import factorial #Apenas para a função fatorial(usada em J0)
 from decimal import * #Estou usando a biblioteca decimal para ter um numero arbitrário de digitos significativos
 import time #Usado para capturar o tempo decorrido entre cálculos
 import csv #Para lidar com as tabelas e gráficos
-from pathlib import Path as find #Usado para encontrar e salvar o arquivo
+from pathlib import Path as find #Usado para encontrar a pasta atual
 
-getcontext().prec = 1000 #Quantidade de casas decimais dos objetos decimais; Para maiores valores de X, esse valor precisa ser aumentado.
+
+#######Variáveis Globais##################################################
+#Ambas afetam precisão; getcontext().prec afeta menos o tempo de cálculo do que kmax
+
+getcontext().prec = 500 #Quantidade de casas decimais dos objetos decimais; Para valores de x > 100, esse valor precisa ser aumentado.
+kmax = 300 #kmax é o k máximo das somas de J0(x)
+##########################################################################
+
 
 ####Funções de Teste###############################################################################################################
 def Test(x_conhecido,resj0_conhecido,resj1_conhecido): #Função para testar as funções de bessel com valores conhecidos
@@ -16,9 +23,7 @@ def Test(x_conhecido,resj0_conhecido,resj1_conhecido): #Função para testar as 
 			return 0 #Para o teste não dar resultados errados, usa-se um tipo de dado com menor perda de informação
 	print("Rodando Teste: ")
 	resj0_calculado = my_j0(x_conhecido)
-	#difj0 = Decimal(resj0_conhecido) - resj0_calculado
 	resj1_calculado = my_j1(x_conhecido,resj0_calculado)
-	#difj1 = Decimal(resj1_conhecido) - resj1_calculado
 	msg = []
 	for t in [[resj0_conhecido,resj0_calculado],[resj1_conhecido,resj1_calculado]]:
 		for i in range(len(t[0])):
@@ -51,17 +56,20 @@ def default_tests(): #Roda 3 testes usando valores que encontrei na internet
 	print(default_test2)
 	print(default_test3)
 	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
+	o = open("log_teste.txt","a+")
+	o.write("{}\n{}\n{}\nTempo Decorrido: {}s\n".format(default_test1,default_test2,default_test3,round(end_time-start_time,5)))
+	o.close()
 ###############################################################################################################
 
 def my_j0(x): #Função de Bessel J0
-	kmax = 300
+	global kmax
 	J0 = Decimal(0)
 	x = Decimal(x)
 	if x == 0:
 		return Decimal(1)
 	for k in range(kmax+1):
 		print("Calculando J0({}): {}%".format(x,round((k*100/kmax),2)))
-		J0 += Decimal(((-x**2)**k))/Decimal(((4**k)*(math.factorial(k)**2)))
+		J0 += Decimal(((-x**2)**k))/Decimal(((4**k)*(factorial(k)**2)))
 	return J0
 
 def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculado, usa-se o argumento 'calculado' para diminuir o tempo de cálculo
@@ -73,30 +81,7 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 		dy = my_j0(x+dx) - calculado
 	return (dy/dx)
 
-def tabelar(xi,xf):
-	start_time = time.time()
-	prim = xi
-	o = open("PLOT_DATA_{}_{}.csv".format(xi,xf),"w+")
-	o.write("X,J0,J1 \n")
-	o.close()
-	t = open("Tabela_J0_{}_{}.csv".format(prim,xf),"w+")
-	t.write("x,J0,J1 \n")
-	t.close()
-	while xi <= xf:
-		calc_j0 = my_j0(xi)
-		calc_j1 = my_j1(xi,calc_j0)
-		o = open("PLOT_DATA_{}_{}.csv".format(prim,xf),"a+") #Esse arquivo contém mais dígitos significativos; para ser usado no gráfico
-		o.write("{},{},{} \n".format(xi,calc_j0,calc_j1))	 #Imprático de ser lido
-		o.close()
-		t = open("Tabela_J0_{}_{}.csv".format(prim,xf),"a+") 				 #Esse arquivo contém ~58 casas decimais
-		t.write("{},{},{} \n".format(xi,str(calc_j0)[:60],str(calc_j1)[:60]))#Melhor de ser lido
-		t.close()
-		xi += Decimal("0.1")
-	end_time = time.time()
-	print("Pronto! Tempo decorrido: {}".format(end_time-start_time))
-	return end_time-start_time
-
-def pdfplot(graf):
+def pdfplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv
 	o = open(graf,"r")
 	graf = list(csv.reader(o,delimiter=","))
 	o.close()
@@ -106,14 +91,55 @@ def pdfplot(graf):
 	plib.plot(x,j0)
 	plib.plot(x,j1)
 	plib.savefig('Plot_{}_{}.pdf'.format(x[0],x[-1]))
+	return "sucesso"
+
+def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,xf) [com xf incluso]
+	start_time = time.time()
+	prim = xi
+	o = open("PLOT_DATA_{}_{}.csv".format(xi,xf),"w+")
+	o.write("X,J0,J1 \n")
+	o.close()
+	t = open("Tabela_{}_{}.csv".format(prim,xf),"w+")
+	t.write("x,J0,J1 \n")
+	t.close()
+	while xi <= xf:
+		calc_j0 = my_j0(xi)
+		calc_j1 = my_j1(xi,calc_j0)
+		o = open("PLOT_DATA_{}_{}.csv".format(prim,xf),"a+") #Esse arquivo contém mais dígitos significativos; para ser usado no gráfico
+		o.write("{},{},{} \n".format(xi,calc_j0,calc_j1))	 #Imprático de ser lido
+		o.close()
+		t = open("Tabela_{}_{}.csv".format(prim,xf),"a+") 				 #Esse arquivo contém ~58 casas decimais
+		t.write("{},{},{} \n".format(xi,str(calc_j0)[:60],str(calc_j1)[:60]))#Melhor de ser lido
+		t.close()
+		xi += Decimal("0.1")
+	end_time = time.time()
+	print("Pronto! Tempo decorrido: {}".format(end_time-start_time))
+	pdfplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
+	return "sucesso"
 
 ####################################################################################
-#times = []
-#for i in range(1,101):
-#	times.append(tabelar(0,i))
-#plib.plot(list(range(1,101)),times)
-#plib.savefig("timetaken.pdf")
-#tabelar(-100,100)
-#grafplot()
-tabelar(-5,5)
-pdfplot("Tabela_J0_-5_5.csv")
+
+inp = input("Rodar testes de Precisão? (y/n)")
+if inp.lower() == "y":
+	default_tests()
+	hold = input("Pressione ENTER para continuar.\n")
+
+while 1 != 0:
+	print("Tabelando J0(x) e J1(x) em: Xi < x < Xf")
+	inp1 = input("Digite o valor de Xi")
+	inp2 = input("Digite o valor de Xf")
+	print("{} < x < {} INSERIDO.".format(inp1,inp2))
+	try:
+		xi = Decimal(inp1)
+		xf = Decimal(inp2)
+	except:
+		print("Erro ao interpretar input.")
+		continue
+	tabelar(xi,xf)
+	print("""
+Sucesso!
+Arquivos salvo em: {0}
+PLOT_DATA_{1}_{2}.csv
+Tabela_{1}_{2}.csv
+Plot_{1}_{2}.pdf
+		""".format(find.cwd(),xi,xf))
