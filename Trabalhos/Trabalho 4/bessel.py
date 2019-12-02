@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 from matplotlib import pyplot as plib
-import math
-from decimal import *
-import time
-"""
-Estou usando a biblioteca decimal para ter um numero arbitrário de digitos significativos
-"""
-getcontext().prec = 10000 #Quantidade de casas decimais dos objetos decimais; Para maiores valores de X, esse valor precisa ser aumentado.
+import math #Apenas para a função fatorial(usada em J0)
+from decimal import * #Estou usando a biblioteca decimal para ter um numero arbitrário de digitos significativos
+import time #Usado para capturar o tempo decorrido entre cálculos
+
+
+getcontext().prec = 2000 #Quantidade de casas decimais dos objetos decimais; Para maiores valores de X, esse valor precisa ser aumentado.
 
 
 ####Funções de Teste###############################################################################################################
@@ -18,7 +17,7 @@ def Test(x_conhecido,resj0_conhecido,resj1_conhecido): #Função para testar as 
 	print("Rodando Teste: ")
 	resj0_calculado = my_j0(x_conhecido)
 	#difj0 = Decimal(resj0_conhecido) - resj0_calculado
-	resj1_calculado = my_j1(x_conhecido)
+	resj1_calculado = my_j1(x_conhecido,resj0_calculado)
 	#difj1 = Decimal(resj1_conhecido) - resj1_calculado
 	msg = []
 	for t in [[resj0_conhecido,resj0_calculado],[resj1_conhecido,resj1_calculado]]:
@@ -55,7 +54,8 @@ def default_tests(): #Roda 3 testes usando valores que encontrei na internet
 ###############################################################################################################
 
 
-def my_j0(x, kmax = 1337): #Função de Bessel J0
+def my_j0(x): #Função de Bessel J0
+	kmax = 1000
 	J0 = Decimal(0)
 	x = Decimal(x)
 	for k in range(kmax+1):
@@ -63,10 +63,13 @@ def my_j0(x, kmax = 1337): #Função de Bessel J0
 		J0 += Decimal(((-x**2)**k))/Decimal(((4**k)*(math.factorial(k)**2)))
 	return J0
 
-def my_j1(x, kmax = 1337): #Função de Bessel J1
+def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculado, usa-se o argumento 'calculado' para diminuir o tempo de cálculo
 	x = Decimal(x)
 	dx = Decimal("0.00000000000000000000000000000000000000000000001")
-	dy = my_j0(x+dx) - my_j0(x)
+	if calculado == "n":
+		dy = my_j0(x+dx) - my_j0(x)
+	else:
+		dy = my_j0(x+dx) - calculado
 	return (dy/dx)
 
 
