@@ -101,6 +101,36 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 		dy = my_j0(x+dx) - calculado
 	return (-dy/dx)
 
+def plotconfig():
+	while 1 != 0:
+		Print("Digite o tamanho (em cm) do gráfico: \n (Deixe em Branco para ser do tamanho a4)")
+		inp = input("Digite a largura \n")
+		if inp.strip() == "":
+			lar = Decimal(29.7)
+			alt = Decimal(21.0)
+			break
+		inp2 = input("Digite a altura \n")
+		try:
+			lar = Decimal(inp)/Decimal(2.54)
+			alt = Decimal(inp2)/Decimal(2.54)
+			break
+		except:
+			print("Erro ao interpretar input.")
+			continue
+	while 1 != 0:
+		print("Escolha o espaçamento da escala no eixo x \n (Deixe em branco para ser [0,5,10,15,...])")
+		inp = input("Digite um número inteiro \n")
+		if inp.strip() == "":
+			scl = 5
+			break
+		try:
+			scl = int(inp)
+			break
+		except:
+			print("Erro ao interpretar input. (Deve ser um número inteiro)")
+			continue
+	return [lar,alt,scl]
+
 def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv
 	o = open(graf,"r")
 	graf = list(csv.reader(o,delimiter=","))
@@ -108,8 +138,11 @@ def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquiv
 	x  = [Decimal(graf[i][0]) for i in range(1,len(graf))]
 	j0 = [Decimal(graf[i][1]) for i in range(1,len(graf))]
 	j1 = [Decimal(graf[i][2]) for i in range(1,len(graf))]
+	config = plotconfig()
+	plib.figure(figsize=(config[0],config[1]))
 	ax = plib.axes()
-	ax.xaxis.set_major_locator(ticker.MultipleLocator(5))
+	plib.xlim(int(x[0]),int(x[-1]))
+	ax.xaxis.set_major_locator(ticker.MultipleLocator(config[2]))
 	ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
 	plib.plot(x,j0)
 	plib.plot(x,j1)
@@ -142,19 +175,27 @@ def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,
 	return "sucesso"
 
 ####################################################################################
-a=saveplot("PLOT_DATA_-100_100.csv")
-print(a)
 
-
-
-'''
 inp = input("Rodar testes de Precisão? (y/n)\n")
 if inp.lower() == "y":
 	default_tests()
 	hold = input("Pressione ENTER para continuar.\n")
 
 
-while 1 != 0:
+while 1:
+	print("Digite o intervalo (Xi,Xf) salvo em arquivo para carregar.\n (Digite 'c' para cancelar)")
+	inp1 = input("Xi: ")
+	if inp1 == "c":
+		break
+	inp2 = input("Xf: ")
+	try:
+		saveplot("PLOT_DATA_{}_{}.csv".format(inp1,inp2))
+		break
+	except:
+		print("Aquivo: {}/PLOT_DATA_{}_{}.csv não encontrado \n\n".format(find.cwd(),inp1,inp2))
+		continue
+
+while 1:
 	print("Tabelando J0(x) e J1(x) em: Xi < x < Xf")
 	inp1 = input("Digite o valor de Xi\n")
 	inp2 = input("Digite o valor de Xf\n")
@@ -178,4 +219,3 @@ Plot_{1}_{2}.pdf
 		continue
 	else:
 		break
-'''
