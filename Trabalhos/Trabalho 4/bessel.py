@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from matplotlib import pyplot as plib #Para produzir os gráficos
+from matplotlib import ticker
 from math import factorial #Apenas para a função fatorial(usada em J0)
 from decimal import * #Estou usando a biblioteca decimal para ter um numero arbitrário de digitos significativos
 import time #Usado para capturar o tempo decorrido entre cálculos
@@ -9,9 +10,9 @@ from pathlib import Path as find #Usado para encontrar a pasta atual
 
 #######Variáveis Globais##################################################
 #Ambas afetam precisão; getcontext().prec afeta menos o tempo de cálculo do que kmax
-
-getcontext().prec = 500 #Quantidade de casas decimais dos objetos decimais; Para valores de x > 100, esse valor precisa ser aumentado.
-kmax = 300 #kmax é o k máximo das somas de J0(x)
+#AS VARIÁVEIS GLOBAIS FORAM TROCADAS POR VARIÁVEIS DINÂMICAS
+#getcontext().prec = 2000 #Quantidade de casas decimais dos objetos decimais; Para valores de x > 100, esse valor precisa ser aumentado.
+#kmax = 3000 #kmax é o k máximo das somas de J0(x) - (Foi substituído por um valor dinâmico)
 ##########################################################################
 
 
@@ -46,29 +47,48 @@ Precisão Configurada: {4} casas decimais
 		""".format(x_conhecido,resj0_conhecido,str(resj0_calculado)[:60],msg[0],getcontext().prec,resj1_conhecido,str(resj1_calculado)[:60],msg[1])
 	return test_result
 
-def default_tests(): #Roda 3 testes usando valores que encontrei na internet
+def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	start_time = Decimal(time.time())
-	default_test1 = Test(2,"0.22389077914123566805182745464994862582515448221861","-0.57672480775687338720244824226913708692030268971968")
-	default_test2 = Test(37,"0.010862369724899694740993821310850856019800294935816","0.13058003873375645502815126677389762266272038575475")
-	default_test3 = Test(100,"0.019985850304223122424228390950848990680633578859028","0.077145352014112158032685494927234470211611667099243")
+	default_test1 = Test(2,"0.22389077914123566805182745464994862582515448221861","0.57672480775687338720244824226913708692030268971968")
+	default_test2 = Test(100,"0.019985850304223122424228390950848990680633578859028","-0.077145352014112158032685494927234470211611667099243")
+	default_test3 = Test(249,"-0.05054361019992152349247603013408618460724935701513987722","-0.00153126021193784447519403077306501550646690195666120635")
+	default_test4 = Test(499,"-0.0095930996349789212572774511326990627036914753655901","0.034396260940337637501321797778376299069817169182645")
+	default_test5 = Test(500,"-0.03410055688073199826512506045189455813144279153168387048","0.010472613470372292844467094756967054578966611894700673094")
+	default_test6 = Test(699,"0.021436359010795065183459364123769093585704041673003443121","0.021257753656885555591464165457600932132078055405985654930")
+	default_test7 = Test(1000,"0.024786686152420174561330731115693708786166447133246548414","0.004728311907089523917576071901216916285418024202059636868")
 	end_time = Decimal(time.time())
-	print(default_test1)
-	print(default_test2)
-	print(default_test3)
-	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
 	o = open("log_teste.txt","a+")
-	o.write("{}\n{}\n{}\nTempo Decorrido: {}s\n".format(default_test1,default_test2,default_test3,round(end_time-start_time,5)))
+	for save in [default_test1,default_test2,default_test3,default_test4,default_test5,default_test6,default_test7]:
+		print(save)
+		o.write("{}\n".format(save))
+	o.write("Tempo Decorrido: {}s\n".format(round(end_time-start_time,5)))
 	o.close()
+	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
 ###############################################################################################################
 
 def my_j0(x): #Função de Bessel J0
-	global kmax
+	if abs(x) >= 700:
+		getcontext().prec = 1500
+		kmax = 3000
+	elif abs(x) >= 500:
+		getcontext().prec = 1500
+		kmax = 1500
+	elif abs(x) >= 250:
+		getcontext().prec = 1000
+		kmax = 1000
+	elif abs(x) >= 100:
+		getcontext().prec = 750
+		kmax = 500
+	else:
+		getcontext().prec = 500
+		kmax = 300
 	J0 = Decimal(0)
 	x = Decimal(x)
 	if x == 0:
 		return Decimal(1)
 	for k in range(kmax+1):
-		print("Calculando J0({}): {}%".format(x,round((k*100/kmax),2)))
+		if k%50 == 0:
+			print("Calculando J0({}): {}%".format(x,round((k*100/kmax),2)))
 		J0 += Decimal(((-x**2)**k))/Decimal(((4**k)*(factorial(k)**2)))
 	return J0
 
@@ -79,18 +99,22 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 		dy = my_j0(x+dx) - my_j0(x)
 	else:
 		dy = my_j0(x+dx) - calculado
-	return (dy/dx)
+	return (-dy/dx)
 
-def pdfplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv
+def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv
 	o = open(graf,"r")
 	graf = list(csv.reader(o,delimiter=","))
 	o.close()
 	x  = [Decimal(graf[i][0]) for i in range(1,len(graf))]
 	j0 = [Decimal(graf[i][1]) for i in range(1,len(graf))]
 	j1 = [Decimal(graf[i][2]) for i in range(1,len(graf))]
+	ax = plib.axes()
+	ax.xaxis.set_major_locator(ticker.MultipleLocator(5))
+	ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
 	plib.plot(x,j0)
 	plib.plot(x,j1)
 	plib.savefig('Plot_{}_{}.pdf'.format(x[0],x[-1]))
+	plib.savefig('Plot_{}_{}.svg'.format(x[0],x[-1]))
 	return "sucesso"
 
 def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,xf) [com xf incluso]
@@ -109,25 +133,31 @@ def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,
 		o.write("{},{},{} \n".format(xi,calc_j0,calc_j1))	 #Imprático de ser lido
 		o.close()
 		t = open("Tabela_{}_{}.csv".format(prim,xf),"a+") 				 #Esse arquivo contém ~58 casas decimais
-		t.write("{},{},{} \n".format(xi,str(calc_j0)[:60],str(calc_j1)[:60]))#Melhor de ser lido
+		t.write("{},{},{} \n".format(xi,round(calc_j0,60),round(calc_j1,60)))#Melhor de ser lido
 		t.close()
 		xi += Decimal("0.1")
 	end_time = time.time()
 	print("Pronto! Tempo decorrido: {}".format(end_time-start_time))
-	pdfplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
+	saveplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
 	return "sucesso"
 
 ####################################################################################
+a=saveplot("PLOT_DATA_-100_100.csv")
+print(a)
 
-inp = input("Rodar testes de Precisão? (y/n)")
+
+
+'''
+inp = input("Rodar testes de Precisão? (y/n)\n")
 if inp.lower() == "y":
 	default_tests()
 	hold = input("Pressione ENTER para continuar.\n")
 
+
 while 1 != 0:
 	print("Tabelando J0(x) e J1(x) em: Xi < x < Xf")
-	inp1 = input("Digite o valor de Xi")
-	inp2 = input("Digite o valor de Xf")
+	inp1 = input("Digite o valor de Xi\n")
+	inp2 = input("Digite o valor de Xf\n")
 	print("{} < x < {} INSERIDO.".format(inp1,inp2))
 	try:
 		xi = Decimal(inp1)
@@ -143,3 +173,9 @@ PLOT_DATA_{1}_{2}.csv
 Tabela_{1}_{2}.csv
 Plot_{1}_{2}.pdf
 		""".format(find.cwd(),xi,xf))
+	ask = input("Calcular outro intervalo (y/n)\n")
+	if ask.lower() == "y":
+		continue
+	else:
+		break
+'''
