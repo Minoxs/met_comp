@@ -44,7 +44,7 @@ J1_Calculado({0}) = {6}
 ===========================================================================
 Precisão Configurada: {4} casas decimais
 ===========================================================================
-		""".format(x_conhecido,resj0_conhecido,str(resj0_calculado)[:60],msg[0],getcontext().prec,resj1_conhecido,str(resj1_calculado)[:60],msg[1])
+		""".format(x_conhecido,resj0_conhecido,round(resj0_calculado,60),msg[0],getcontext().prec,resj1_conhecido,round(resj1_calculado,60),msg[1])
 	return test_result
 
 def default_tests(): #Roda 5 testes usando valores que encontrei na internet
@@ -104,7 +104,7 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 
 def plotconfig(): #Essa função acompanha saveplot() para configurá-la com parâmetros dados via input do usuário
 	while 1 != 0:
-		print("Digite o tamanho (em cm) do gráfico: \n (Deixe em Branco para ser do tamanho A4)")
+		print("Digite o tamanho (em cm) do gráfico: \n(Deixe em Branco para ser do tamanho A4)")
 		
 		inp = input("Digite a largura \n")
 		if inp.strip() == "":
@@ -125,7 +125,7 @@ def plotconfig(): #Essa função acompanha saveplot() para configurá-la com par
 			continue
 	
 	while 1 != 0:
-		print("Escolha o espaçamento da escala no eixo x \n (Deixe em branco para ser [0,5,10,15,...])")
+		print("Escolha o espaçamento da escala no eixo x \n(Deixe em branco para ser [0,5,10,15,...])")
 		inp = input("Digite um número inteiro \n")
 		if inp.strip() == "":
 			scl = 5
@@ -209,7 +209,7 @@ Insira 'plot' ou 'p' para gerar um gráfico à partir de uma tabela (X,J0,J1)
 	command = input("Comando: ")
 
 	while command.lower() == "plot" or command.lower() == "p":
-		print("Digite o intervalo (Xi,Xf) salvo em arquivo para carregar.\n (Digite 'c' para cancelar)")
+		print("Digite o intervalo (Xi,Xf) salvo em arquivo para carregar.\n(Digite 'c' para cancelar)")
 		inp1 = input("Xi: ")
 		if inp1 == "c":
 			break
