@@ -104,13 +104,16 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 
 def plotconfig(): #Essa função acompanha saveplot() para configurá-la com parâmetros dados via input do usuário
 	while 1 != 0:
-		print("Digite o tamanho (em cm) do gráfico: \n (Deixe em Branco para ser do tamanho a4)")
+		print("Digite o tamanho (em cm) do gráfico: \n (Deixe em Branco para ser do tamanho A4)")
+		
 		inp = input("Digite a largura \n")
 		if inp.strip() == "":
-			lar = float(round(Decimal(29.7)/Decimal(2.54),2))
-			alt = float(round(Decimal(21.0)/Decimal(2.54),2))
-			break
+			inp = "29.7"
+		
 		inp2 = input("Digite a altura \n")
+		if inp2.strip() == "":
+			inp2 = "21.0"
+		
 		try:
 			lar = Decimal(inp)/Decimal(2.54)
 			alt = Decimal(inp2)/Decimal(2.54)
@@ -120,6 +123,7 @@ def plotconfig(): #Essa função acompanha saveplot() para configurá-la com par
 		except:
 			print("Erro ao interpretar input.")
 			continue
+	
 	while 1 != 0:
 		print("Escolha o espaçamento da escala no eixo x \n (Deixe em branco para ser [0,5,10,15,...])")
 		inp = input("Digite um número inteiro \n")
@@ -147,10 +151,17 @@ def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquiv
 	plib.xlim(int(x[0]),int(x[-1]))
 	ax.xaxis.set_major_locator(ticker.MultipleLocator(config[2]))
 	ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
+	ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
+	ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.01))
+	plib.grid(b=True)
 	plib.plot(x,j0)
 	plib.plot(x,j1)
-	plib.savefig('Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1])))
-	plib.savefig('Plot_{}_{}.svg'.format(int(x[0]),int(x[-1])))
+	plib.title("Função de Bessel de {} até {}".format(float(round(x[0],2)),float(round(x[-1],2))))
+	plib.ylabel("y")
+	plib.xlabel("x")
+	plib.legend(["J0(x)","J1(x)"])
+	plib.savefig('Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.5)
+	plib.savefig('Plot_{}_{}.svg'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.5)
 	print("Plot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\nSalvos em: {2}\n".format(int(x[0]),int(x[-1]),find.cwd()))
 	return "sucesso"
 
