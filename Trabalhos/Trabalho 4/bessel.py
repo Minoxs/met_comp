@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from matplotlib import pyplot as plib #Para produzir os gráficos
-from matplotlib import ticker
+from matplotlib import ticker #Para modificar os 'ticks' dos gráficos
 from math import factorial #Apenas para a função fatorial(usada em J0)
 from decimal import * #Estou usando a biblioteca decimal para ter um numero arbitrário de digitos significativos
 import time #Usado para capturar o tempo decorrido entre cálculos
@@ -65,7 +65,8 @@ def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	o.close()
 	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
 ###############################################################################################################
-
+#Aqui começa a parte principal do script
+#getcontext().prec é a quantidade de casas decimais precisas de objetos decimais, quanto mais casas, menor o erro de arredondamento.
 def my_j0(x): #Função de Bessel J0
 	if abs(x) >= 700:
 		getcontext().prec = 1500
@@ -101,18 +102,20 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 		dy = my_j0(x+dx) - calculado
 	return (-dy/dx)
 
-def plotconfig():
+def plotconfig(): #Essa função acompanha saveplot() para configurá-la com parâmetros dados via input do usuário
 	while 1 != 0:
-		Print("Digite o tamanho (em cm) do gráfico: \n (Deixe em Branco para ser do tamanho a4)")
+		print("Digite o tamanho (em cm) do gráfico: \n (Deixe em Branco para ser do tamanho a4)")
 		inp = input("Digite a largura \n")
 		if inp.strip() == "":
-			lar = Decimal(29.7)
-			alt = Decimal(21.0)
+			lar = float(round(Decimal(29.7)/Decimal(2.54),2))
+			alt = float(round(Decimal(21.0)/Decimal(2.54),2))
 			break
 		inp2 = input("Digite a altura \n")
 		try:
 			lar = Decimal(inp)/Decimal(2.54)
 			alt = Decimal(inp2)/Decimal(2.54)
+			lar = float(round(lar,4))
+			alt = float(round(alt,4))
 			break
 		except:
 			print("Erro ao interpretar input.")
@@ -131,7 +134,7 @@ def plotconfig():
 			continue
 	return [lar,alt,scl]
 
-def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv
+def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv, resultado em .svg e .pdf
 	o = open(graf,"r")
 	graf = list(csv.reader(o,delimiter=","))
 	o.close()
@@ -146,8 +149,9 @@ def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquiv
 	ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
 	plib.plot(x,j0)
 	plib.plot(x,j1)
-	plib.savefig('Plot_{}_{}.pdf'.format(x[0],x[-1]))
-	plib.savefig('Plot_{}_{}.svg'.format(x[0],x[-1]))
+	plib.savefig('Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1])))
+	plib.savefig('Plot_{}_{}.svg'.format(int(x[0]),int(x[-1])))
+	print("Plot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\nSalvos em: {2}\n".format(int(x[0]),int(x[-1]),find.cwd()))
 	return "sucesso"
 
 def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,xf) [com xf incluso]
@@ -170,52 +174,63 @@ def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,
 		t.close()
 		xi += Decimal("0.1")
 	end_time = time.time()
+	print("PLOT_DATA_{1}_{2}.csv\nTabela_{1}_{2}.csv\nSalvo em: {0}\n".format(find.cwd(),prim,xf))
 	print("Pronto! Tempo decorrido: {}".format(end_time-start_time))
 	saveplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
 	return "sucesso"
 
 ####################################################################################
 
-inp = input("Rodar testes de Precisão? (y/n)\n")
+inp = input("Rodar testes de Precisão? (y/n)\n(Leva 1-3 minutos)\n") #perguntando caso queira rodar os testes padrões
 if inp.lower() == "y":
 	default_tests()
 	hold = input("Pressione ENTER para continuar.\n")
 
-
-while 1:
-	print("Digite o intervalo (Xi,Xf) salvo em arquivo para carregar.\n (Digite 'c' para cancelar)")
-	inp1 = input("Xi: ")
-	if inp1 == "c":
-		break
-	inp2 = input("Xf: ")
-	try:
-		saveplot("PLOT_DATA_{}_{}.csv".format(inp1,inp2))
-		break
-	except:
-		print("Aquivo: {}/PLOT_DATA_{}_{}.csv não encontrado \n\n".format(find.cwd(),inp1,inp2))
-		continue
-
-while 1:
-	print("Tabelando J0(x) e J1(x) em: Xi < x < Xf")
-	inp1 = input("Digite o valor de Xi\n")
-	inp2 = input("Digite o valor de Xf\n")
-	print("{} < x < {} INSERIDO.".format(inp1,inp2))
-	try:
-		xi = Decimal(inp1)
-		xf = Decimal(inp2)
-	except:
-		print("Erro ao interpretar input.")
-		continue
-	tabelar(xi,xf)
+while 1: #Essa parte toda é responsável apenas por receber inputs do usuário.
 	print("""
-Sucesso!
-Arquivos salvo em: {0}
-PLOT_DATA_{1}_{2}.csv
-Tabela_{1}_{2}.csv
-Plot_{1}_{2}.pdf
-		""".format(find.cwd(),xi,xf))
-	ask = input("Calcular outro intervalo (y/n)\n")
-	if ask.lower() == "y":
-		continue
-	else:
+	\n
+Digite 'calcular' ou 'c' para calcular J0(x) e J1(x) em um intervalo (Xi,Xf)
+Insira 'plot' ou 'p' para gerar um gráfico à partir de uma tabela (X,J0,J1)
+(Digite 'sair' para fechar o programa)
+	\n
+	""")
+
+	command = input("Comando: ")
+
+	while command.lower() == "plot" or command.lower() == "p":
+		print("Digite o intervalo (Xi,Xf) salvo em arquivo para carregar.\n (Digite 'c' para cancelar)")
+		inp1 = input("Xi: ")
+		if inp1 == "c":
+			break
+		inp2 = input("Xf: ")
+		try:
+			saveplot("PLOT_DATA_{}_{}.csv".format(inp1,inp2))
+			break
+		except:
+			print("Aquivo: {}/PLOT_DATA_{}_{}.csv não encontrado \n\n".format(find.cwd(),inp1,inp2))
+			continue
+
+	while command.lower() == "calcular" or command.lower() == "c":
+		print("Tabelando J0(x) e J1(x) em: Xi < x < Xf")
+		inp1 = input("Digite o valor de Xi\n")
+		inp2 = input("Digite o valor de Xf\n")
+		print("{} < x < {} INSERIDO.".format(inp1,inp2))
+		if inp1 == inp2:
+			print("Xi deve ser diferente de Xf")
+			continue
+		try:
+			xi = Decimal(inp1)
+			xf = Decimal(inp2)
+		except:
+			print("Erro ao interpretar input.")
+			continue
+		tabelar(xi,xf)
+		ask = input("Calcular outro intervalo (y/n)\n")
+		if ask.lower() == "y":
+			continue
+		else:
+			break
+
+	if command.lower() == 'sair' or command.lower() == 'exit':
 		break
+	command = "novo comando"
