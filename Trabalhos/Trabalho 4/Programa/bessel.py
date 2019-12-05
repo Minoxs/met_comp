@@ -7,6 +7,13 @@ import time #Usado para capturar o tempo decorrido entre cálculos
 import csv #Para lidar com as tabelas e gráficos
 from pathlib import Path as find #Usado para encontrar a pasta atual
 
+#---------------------<PROGRAMA>&<MODULO>----------------------------------
+# Referência: Trabalho n. 4
+# Nome(s): Guilherme Wagner Correa (00303992)
+# Data: 05/12/2019
+# Objetivo: Calcular a função de bessel, J0 e J1, tabelar e plotar o gráfico.
+# Funções de teste de precisão estão inclusas no script, na parte superior.
+#--------------------------------------------------------------------------
 
 #######Variáveis Globais##################################################
 #Ambas afetam precisão; getcontext().prec afeta menos o tempo de cálculo do que kmax
@@ -65,8 +72,10 @@ def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	o.close()
 	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
 ###############################################################################################################
+
 #Aqui começa a parte principal do script
 #getcontext().prec é a quantidade de casas decimais precisas de objetos decimais, quanto mais casas, menor o erro de arredondamento.
+
 def my_j0(x): #Função de Bessel J0
 	if abs(x) >= 700:
 		getcontext().prec = 1500
