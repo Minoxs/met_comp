@@ -5,6 +5,19 @@ from PIL import Image, ImageTk
 
 root = Tk()
 
+class Console(Frame):
+
+	def __init__(self,master=None):
+		Frame.__init__(self,master)
+		self.master = master
+		self.init_window()
+	
+	def init_window(self):
+		self.master.title("Bessel")
+		self.pack(side=BOTTOM,fill=BOTH, expand=0)
+		exit_button = Button(self, text="Quit",command=exit,width=10,height=5)
+		exit_button.pack(anchor=SE)
+
 class Start_Menu(Frame):
 
 	def __init__(self,master=None):
@@ -14,17 +27,48 @@ class Start_Menu(Frame):
 	
 	def init_window(self):
 		self.master.title("Bessel")
-		self.pack(fill=BOTH, expand=1)
-		exit_button = Button(self, text="Quit",command=exit,height=4,width=8)
-		exit_button.place(relx = 1, rely = 1, x = -2, y = -2,anchor = SE)
-		switch_button = Button(self,text="switch",command=self.reform)
-		switch_button.grid(row=1,column=0)
+		self.pack(side=TOP,fill=BOTH, expand=1)
+		
+		W = 20
+		H = 2
+		test_button = Button(self, text="Rodar Testes de Precisão", command=self.default_tests,width=W,height=H)
+		test_button.pack()
+		tabelar_button = Button(self, text="Tabelar & Plotar", command=self.tabelar_menu,width=W,height=H)
+		tabelar_button.pack()
+		plot_button = Button(self, text="Carregar Gráfico", command=self.plot_menu,width=W,height=H)
+		plot_button.pack()
 
-	def reform(self):
+	def default_tests(self):
 		self.destroy()
-		app=entry_menu(root)
+		app=Default_Tests(root)
 
-class entry_menu(Frame):
+	def tabelar_menu(self):
+		self.destroy()
+		app=Tabelar_Menu(root)
+
+	def plot_menu(self):
+		self.destroy()
+		app=Plot_Menu(root)
+
+class Default_Tests(Frame):
+	def __init__(self,master=None):
+		Frame.__init__(self,master)
+		self.master = master
+		self.init_window()
+
+	def init_window(self):
+		self.pack(side=TOP, fill=BOTH, expand = 1)
+		go_back = Button(self,text="Voltar",command=self.back)
+		go_back.pack(anchor=NE)
+
+		confirm = Label(self,text="Rodar Testes?\nUsualmente leva 1-3 minutos")
+		confirm.pack()
+
+	def back(self):
+		self.destroy()
+		app=Start_Menu(root)
+
+class Tabelar_Menu(Frame):
 
 	def __init__(self,master=None):
 		Frame.__init__(self,master)
@@ -32,24 +76,34 @@ class entry_menu(Frame):
 		self.init_window()
 
 	def init_window(self):
-		self.pack(fill=BOTH, expand=1)
-		back = Button(self,text="go back",command=self.switch)
-		back.pack()
+		self.pack(side=TOP, fill=BOTH, expand = 1)
+		go_back = Button(self,text="Voltar",command=self.back)
+		go_back.pack(anchor=NE)
 
-	def switch(self):
+	def back(self):
 		self.destroy()
 		app=Start_Menu(root)
 
+class Plot_Menu(Frame):
 
+	def __init__(self,master=None):
+		Frame.__init__(self,master)
+		self.master = master
+		self.init_window()
 
+	def init_window(self):
+		self.pack(side=TOP, fill=BOTH, expand = 1)
+		go_back = Button(self,text="Voltar",command=self.back)
+		go_back.pack(anchor=NE)
+
+	def back(self):
+		self.destroy()
+		app=Start_Menu(root)
 
 app = Start_Menu(root)
+app = Console(root)
 
-ws = root.winfo_screenwidth()
-hs = root.winfo_screenheight()
-w=400
-h=300
-
-root.geometry("{}x{}".format(w,h))
+root.geometry("800x600")
+root.resizable(0,0) #Desativar modificação no tamanho da janela
 
 root.mainloop()
