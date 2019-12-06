@@ -59,6 +59,22 @@ def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	default_test1 = Test(2,"0.22389077914123566805182745464994862582515448221861","0.57672480775687338720244824226913708692030268971968")
 	default_test2 = Test(100,"0.019985850304223122424228390950848990680633578859028","-0.077145352014112158032685494927234470211611667099243")
 	default_test3 = Test(249,"-0.05054361019992152349247603013408618460724935701513987722","-0.00153126021193784447519403077306501550646690195666120635")
+	end_time = Decimal(time.time())
+	o = open("log_teste.txt","a+")
+	for save in [default_test1,default_test2,default_test3]:
+		print(save)
+		o.write("{}\n".format(save))
+	o.write("Tempo Decorrido: {}s\n".format(round(end_time-start_time,5)))
+	o.close()
+	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
+	return [default_test1,default_test2,default_test3]
+
+'''
+def default_tests(): #Roda 5 testes usando valores que encontrei na internet
+	start_time = Decimal(time.time())
+	default_test1 = Test(2,"0.22389077914123566805182745464994862582515448221861","0.57672480775687338720244824226913708692030268971968")
+	default_test2 = Test(100,"0.019985850304223122424228390950848990680633578859028","-0.077145352014112158032685494927234470211611667099243")
+	default_test3 = Test(249,"-0.05054361019992152349247603013408618460724935701513987722","-0.00153126021193784447519403077306501550646690195666120635")
 	default_test4 = Test(499,"-0.0095930996349789212572774511326990627036914753655901","0.034396260940337637501321797778376299069817169182645")
 	default_test5 = Test(500,"-0.03410055688073199826512506045189455813144279153168387048","0.010472613470372292844467094756967054578966611894700673094")
 	default_test6 = Test(699,"0.021436359010795065183459364123769093585704041673003443121","0.021257753656885555591464165457600932132078055405985654930")
@@ -71,6 +87,8 @@ def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	o.write("Tempo Decorrido: {}s\n".format(round(end_time-start_time,5)))
 	o.close()
 	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
+	return [default_test1,default_test2,default_test3,default_test4,default_test5,default_test6,default_test7]
+'''
 ###############################################################################################################
 
 #Aqui começa a parte principal do script

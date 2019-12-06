@@ -18,6 +18,17 @@ class Console(Frame):
 		exit_button = Button(self, text="Quit",command=exit,width=10,height=5)
 		exit_button.pack(anchor=SE)
 
+	def create_console_frame(self):
+		self.console_frame = Frame(root,width=800,height=600)
+		self.console_frame.pack()
+
+	def show(self,add):
+		to_print = Label(self.console_frame,text=str(add))
+		to_print.pack()
+
+	def clean(self):
+		self.console_frame.destroy()
+
 class Start_Menu(Frame):
 
 	def __init__(self,master=None):
@@ -39,14 +50,8 @@ class Start_Menu(Frame):
 		plot_button.pack()
 
 	def default_tests(self):
-		temp_window = Tk()
-		temp_window.geometry("300x200+50+50")
-		temp_window.resizable(0,0)
-		temp_window.title("Confirmar")
-		temp = Frame(temp_window)
-		temp.pack(fill=BOTH, expand=1)
-		popup_label = Label(temp, text="Rodar Testes?\nUsualmente leva 1-3 minutos")
-		popup_label.pack()
+		self.destroy()
+		app=Default_Tests(root)
 
 	def tabelar_menu(self):
 		self.destroy()
@@ -56,12 +61,15 @@ class Start_Menu(Frame):
 		self.destroy()
 		app=Plot_Menu(root)
 
-'''
 class Default_Tests(Frame):
 	def __init__(self,master=None):
 		Frame.__init__(self,master)
 		self.master = master
 		self.init_window()
+
+	def create_temp_frame(self,ex = 1):
+		self.temp = Frame(root,width=800,height=600)
+		self.temp.pack(fill=BOTH, expand=ex)
 
 	def init_window(self):
 		self.pack(side=TOP, fill=BOTH, expand = 1)
@@ -71,18 +79,43 @@ class Default_Tests(Frame):
 		confirm = Label(self,text="Rodar Testes?\nUsualmente leva 1-3 minutos")
 		confirm.pack()
 
-		yes = Button(self,text="Sim",command=self.Yes)
-		no = Button(self,text="Não",command=self.back)
-		yes.pack(x=5)
-		no.pack(pady=-10)
+		self.create_temp_frame()
+		yes = Button(self.temp,text="Sim",command=self.Yes)
+		no = Button(self.temp,text="Não",command=self.back)
+		yes.place(x=320,y=70)
+		no.place(x=420, y=70)
 
 	def back(self):
+		try:
+			Console.clean(self)
+		except:
+			pass
+		self.temp.destroy()
 		self.destroy()
 		app=Start_Menu(root)
 
+	def next(self):
+		if len(self.results) != self.n:
+			Console.clean(self)
+			Console.create_console_frame(self)
+			Console.show(self,str(self.results[self.n]))
+			self.n += 1
+		else:
+			self.back()
+
 	def Yes(self):
-		default_tests()
-'''
+		self.n = 0
+		self.temp.destroy() #retira os botões y/n
+		Console.create_console_frame(self)
+		Console.show(self,"Rodando Testes...\nPor favor aguarde.")
+		self.results = default_tests()
+		self.create_temp_frame(0)
+		cont = Button(self.temp,text="Continuar",command=self.next)
+		cont.pack(anchor=S)
+
+
+
+
 
 class Tabelar_Menu(Frame):
 
