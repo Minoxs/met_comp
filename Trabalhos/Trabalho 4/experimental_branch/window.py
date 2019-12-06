@@ -39,8 +39,14 @@ class Start_Menu(Frame):
 		plot_button.pack()
 
 	def default_tests(self):
-		self.destroy()
-		app=Default_Tests(root)
+		temp_window = Tk()
+		temp_window.geometry("300x200+50+50")
+		temp_window.resizable(0,0)
+		temp_window.title("Confirmar")
+		temp = Frame(temp_window)
+		temp.pack(fill=BOTH, expand=1)
+		popup_label = Label(temp, text="Rodar Testes?\nUsualmente leva 1-3 minutos")
+		popup_label.pack()
 
 	def tabelar_menu(self):
 		self.destroy()
@@ -50,6 +56,7 @@ class Start_Menu(Frame):
 		self.destroy()
 		app=Plot_Menu(root)
 
+'''
 class Default_Tests(Frame):
 	def __init__(self,master=None):
 		Frame.__init__(self,master)
@@ -64,9 +71,18 @@ class Default_Tests(Frame):
 		confirm = Label(self,text="Rodar Testes?\nUsualmente leva 1-3 minutos")
 		confirm.pack()
 
+		yes = Button(self,text="Sim",command=self.Yes)
+		no = Button(self,text="Não",command=self.back)
+		yes.pack(x=5)
+		no.pack(pady=-10)
+
 	def back(self):
 		self.destroy()
 		app=Start_Menu(root)
+
+	def Yes(self):
+		default_tests()
+'''
 
 class Tabelar_Menu(Frame):
 
