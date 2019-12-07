@@ -226,6 +226,7 @@ class Plot_Menu(Frame):
 		explanation = Label(self.temp,text="Certifique que PLOT_DATA está na mesma pasta que window.py")
 		empty_button.grid(row=0,column=5)
 		explanation.grid(row=0,column=6)
+		self.img_shown = 0
 		self.nt = 0
 		self.err = 0
 
@@ -239,9 +240,10 @@ class Plot_Menu(Frame):
 		if self.err == 1:
 			Console.delete_entry(self)
 			self.err -= 1
-		if self.nt >= 1:
+		if self.img_shown == 1:
 			Console.remove_img(self)
 			Console.delete_entry(self)
+			self.img_shown -= 1
 		elif self.nt == 0:
 			Console.create_console_frame(self)
 			self.nt += 1
@@ -258,6 +260,7 @@ class Plot_Menu(Frame):
 		Console.delete_entry(self)
 		Console.show(self,"Pronto!")
 		Console.show_img(self,self.run)
+		self.img_shown += 1
 		self.size_label = Label(self.temp, text="Mudar escala de X")
 		self.size_entry = Entry(self.temp)
 		self.size_confirm = Button(self.temp,text="Confirmar",command=self.config)
