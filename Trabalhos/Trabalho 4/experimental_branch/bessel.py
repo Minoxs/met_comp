@@ -150,19 +150,19 @@ def pngplot(graf, lar = 5.5, alt = 13.5, scl = 2):
 	plib.ylabel("y")
 	plib.xlabel("x")
 	plib.legend(["J0(x)","J1(x)"])
-	plib.savefig('Plot_{}_{}.png'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0)
+	plib.savefig('Plot_{}_{}.png'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.1)
 	print("Plot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\nSalvos em: {2}\n".format(int(x[0]),int(x[-1]),find.cwd()))
 	return 'Plot_{}_{}.png'.format(int(x[0]),int(x[-1]))
 
 #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv, resultado em .svg e .pdf
-def saveplot(graf, lar = Decimal(21)/Decimal(2.54), alt = Decimal(29.7)/Decimal(2.54), scl = 5):
+def saveplot(graf, lar = Decimal(50)/Decimal(2.54), alt = Decimal(30)/Decimal(2.54), scl = 2):
 	o = open(graf,"r")
 	graf = list(csv.reader(o,delimiter=","))
 	o.close()
 	x  = [Decimal(graf[i][0]) for i in range(1,len(graf))]
 	j0 = [Decimal(graf[i][1]) for i in range(1,len(graf))]
 	j1 = [Decimal(graf[i][2]) for i in range(1,len(graf))]
-	plib.figure(figsize=(int(alt),int(lar)))
+	plib.figure(figsize=(int(lar),int(alt)))
 	ax = plib.axes()
 	plib.xlim(int(x[0]),int(x[-1]))
 	ax.xaxis.set_major_locator(ticker.MultipleLocator(scl))
