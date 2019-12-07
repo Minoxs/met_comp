@@ -129,43 +129,7 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 		dy = my_j0(x+dx) - calculado
 	return (-dy/dx)
 
-def plotconfig(): #Essa função acompanha saveplot() para configurá-la com parâmetros dados via input do usuário
-	while 1 != 0:
-		print("Digite o tamanho (em cm) do gráfico: \n(Deixe em Branco para ser do tamanho A4)")
-		
-		inp = input("Digite a largura \n")
-		if inp.strip() == "":
-			inp = "29.7"
-		
-		inp2 = input("Digite a altura \n")
-		if inp2.strip() == "":
-			inp2 = "21.0"
-		
-		try:
-			lar = Decimal(inp)/Decimal(2.54)
-			alt = Decimal(inp2)/Decimal(2.54)
-			lar = float(round(lar,4))
-			alt = float(round(alt,4))
-			break
-		except:
-			print("Erro ao interpretar input.")
-			continue
-	
-	while 1 != 0:
-		print("Escolha o espaçamento da escala no eixo x \n(Deixe em branco para ser [0,5,10,15,...])")
-		inp = input("Digite um número inteiro \n")
-		if inp.strip() == "":
-			scl = 5
-			break
-		try:
-			scl = int(inp)
-			break
-		except:
-			print("Erro ao interpretar input. (Deve ser um número inteiro)")
-			continue
-	return [lar,alt,scl]
-
-def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv, resultado em .svg e .pdf
+def saveplot(graf, lar = Decimal(inp)/Decimal(2.54), alt = alt = Decimal(inp2)/Decimal(2.54), scl = 5): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv, resultado em .svg e .pdf
 	o = open(graf,"r")
 	graf = list(csv.reader(o,delimiter=","))
 	o.close()
@@ -173,10 +137,10 @@ def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquiv
 	j0 = [Decimal(graf[i][1]) for i in range(1,len(graf))]
 	j1 = [Decimal(graf[i][2]) for i in range(1,len(graf))]
 	config = plotconfig()
-	plib.figure(figsize=(config[0],config[1]))
+	plib.figure(figsize=(lar,alt))
 	ax = plib.axes()
 	plib.xlim(int(x[0]),int(x[-1]))
-	ax.xaxis.set_major_locator(ticker.MultipleLocator(config[2]))
+	ax.xaxis.set_major_locator(ticker.MultipleLocator(scl))
 	ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
 	ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
 	ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.01))
@@ -190,7 +154,7 @@ def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquiv
 	plib.savefig('Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
 	plib.savefig('Plot_{}_{}.svg'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
 	print("Plot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\nSalvos em: {2}\n".format(int(x[0]),int(x[-1]),find.cwd()))
-	return "sucesso"
+	return 'Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1]))
 
 def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,xf) [com xf incluso]
 	start_time = time.time()
@@ -214,7 +178,7 @@ def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,
 	end_time = time.time()
 	print("PLOT_DATA_{1}_{2}.csv\nTabela_{1}_{2}.csv\nSalvo em: {0}\n".format(find.cwd(),prim,xf))
 	print("Pronto! Tempo decorrido: {}".format(end_time-start_time))
-	saveplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
-	return "sucesso"
+	save = saveplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
+	return save
 
 ####################################################################################

@@ -26,6 +26,14 @@ class Console(Frame):
 		self.to_print = Label(self.console_frame,text=str(add))
 		self.to_print.pack()
 
+	def show_img(self,img):
+		self.load = Image.open(img)
+		self.render = ImageTk.PhotoImage(load)
+
+		self.img = Label(self.console_frame, image=render)
+		self.img.image = render
+		self.img.pack()
+
 	def delete_entry(self):
 		self.to_print.destroy()
 
@@ -148,14 +156,23 @@ class Tabelar_Menu(Frame):
 		self.temp.pack(side=TOP,fill=BOTH,expand=1)
 
 	def do(self):
-		pass
+		if self.Xi.get() == "" or self.Xf.get() == "":
+			return 0
+		Console.create_console_frame(self)
+		Console.show(self,"Tabelando...")
+		root.update_idletasks()
+		run = tabelar(self.Xi.get(),self.Xf.get())
+		Console.delete_entry(self)
+		Console.show(self,"Pronto!")
+		Console.show_img(self,run)
 
 	def back(self):
-		self.destroy()
 		try:
-			self.temp.destroy()
+			Console.clean(self)
 		except:
 			pass
+		self.temp.destroy()
+		self.destroy()
 		app=Start_Menu(root)
 
 class Plot_Menu(Frame):
