@@ -54,6 +54,7 @@ Precisão Configurada: {4} casas decimais
 		""".format(x_conhecido,resj0_conhecido,round(resj0_calculado,60),msg[0],getcontext().prec,resj1_conhecido,round(resj1_calculado,60),msg[1])
 	return test_result
 
+'''
 def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	start_time = Decimal(time.time())
 	default_test1 = Test(2,"0.22389077914123566805182745464994862582515448221861","0.57672480775687338720244824226913708692030268971968")
@@ -68,8 +69,8 @@ def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	o.close()
 	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
 	return [default_test1,default_test2,default_test3]
-
 '''
+
 def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	start_time = Decimal(time.time())
 	default_test1 = Test(2,"0.22389077914123566805182745464994862582515448221861","0.57672480775687338720244824226913708692030268971968")
@@ -87,8 +88,7 @@ def default_tests(): #Roda 5 testes usando valores que encontrei na internet
 	o.write("Tempo Decorrido: {}s\n".format(round(end_time-start_time,5)))
 	o.close()
 	print("Tempo decorrido: {}s".format(round(end_time-start_time,5)))
-	return [default_test1,default_test2,default_test3,default_test4,default_test5,default_test6,default_test7]
-'''
+	return [default_test1,default_test2,default_test3,default_test4,default_test5,default_test6,default_test7,end_time-start_time]
 ###############################################################################################################
 
 #Aqui começa a parte principal do script

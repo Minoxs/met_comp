@@ -8,7 +8,7 @@ root = Tk()
 class Console(Frame):
 
 	def __init__(self,master=None):
-		Frame.__init__(self,master)
+		Frame.__init__(self,master,width=800,height=200)
 		self.master = master
 		self.init_window()
 	
@@ -19,12 +19,15 @@ class Console(Frame):
 		exit_button.pack(anchor=SE)
 
 	def create_console_frame(self):
-		self.console_frame = Frame(root,width=800,height=600)
-		self.console_frame.pack()
+		self.console_frame = Frame(root)
+		self.console_frame.pack(side=BOTTOM)
 
 	def show(self,add):
-		to_print = Label(self.console_frame,text=str(add))
-		to_print.pack()
+		self.to_print = Label(self.console_frame,text=str(add))
+		self.to_print.pack()
+
+	def delete_entry(self):
+		self.to_print.destroy()
 
 	def clean(self):
 		self.console_frame.destroy()
@@ -95,9 +98,8 @@ class Default_Tests(Frame):
 		app=Start_Menu(root)
 
 	def next(self):
-		if len(self.results) != self.n:
-			Console.clean(self)
-			Console.create_console_frame(self)
+		if len(self.results) != self.n+1:
+			Console.delete_entry(self)
 			Console.show(self,str(self.results[self.n]))
 			self.n += 1
 		else:
@@ -106,16 +108,16 @@ class Default_Tests(Frame):
 	def Yes(self):
 		self.n = 0
 		self.temp.destroy() #retira os botões y/n
-		Console.create_console_frame(self)
-		Console.show(self,"Rodando Testes...\nPor favor aguarde.")
+		self.warning = Label(self,text="Por favor aguarde, Rodando testes...")
+		self.warning.pack()
+		root.update_idletasks()
 		self.results = default_tests()
+		Console.create_console_frame(self)
+		Console.show(self,"{} segundos decorridos.".format(round(self.results[-1],4)))
+		Console.show(self,"Pronto! Clique Continuar para mostrar resultados.")
 		self.create_temp_frame(0)
 		cont = Button(self.temp,text="Continuar",command=self.next)
 		cont.pack(anchor=S)
-
-
-
-
 
 class Tabelar_Menu(Frame):
 
@@ -125,12 +127,35 @@ class Tabelar_Menu(Frame):
 		self.init_window()
 
 	def init_window(self):
-		self.pack(side=TOP, fill=BOTH, expand = 1)
+		self.pack(side=RIGHT, fill=BOTH, expand = 1)
 		go_back = Button(self,text="Voltar",command=self.back)
 		go_back.pack(anchor=NE)
 
+		self.create_temp_frame()
+		Xi_label = Label(self.temp,text="Xi")
+		Xf_label = Label(self.temp,text="Xf")
+		self.Xi = Entry(self.temp)
+		self.Xf = Entry(self.temp)
+		continue_button = Button(self.temp,text="Tabelar & Plotar",command=self.do)
+		Xi_label.grid(row=1,column=0)
+		Xf_label.grid(row=2,column=0)
+		self.Xi.grid(row=1,column=1)
+		self.Xf.grid(row=2,column=1)
+		continue_button.grid(row=3,column=0)
+
+	def create_temp_frame(self):
+		self.temp = Frame(root)
+		self.temp.pack(side=TOP,fill=BOTH,expand=1)
+
+	def do(self):
+		pass
+
 	def back(self):
 		self.destroy()
+		try:
+			self.temp.destroy()
+		except:
+			pass
 		app=Start_Menu(root)
 
 class Plot_Menu(Frame):
