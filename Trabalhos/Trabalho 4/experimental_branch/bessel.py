@@ -129,15 +129,40 @@ def my_j1(x,calculado = "n"): #Função de Bessel J1, caso já tenha J0 calculad
 		dy = my_j0(x+dx) - calculado
 	return (-dy/dx)
 
-def saveplot(graf, lar = Decimal(inp)/Decimal(2.54), alt = alt = Decimal(inp2)/Decimal(2.54), scl = 5): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv, resultado em .svg e .pdf
+def pngplot(graf, lar = 5.5, alt = 13.5, scl = 2):
 	o = open(graf,"r")
 	graf = list(csv.reader(o,delimiter=","))
 	o.close()
 	x  = [Decimal(graf[i][0]) for i in range(1,len(graf))]
 	j0 = [Decimal(graf[i][1]) for i in range(1,len(graf))]
 	j1 = [Decimal(graf[i][2]) for i in range(1,len(graf))]
-	config = plotconfig()
-	plib.figure(figsize=(lar,alt))
+	plib.figure(figsize=(alt,lar))
+	ax = plib.axes()
+	plib.xlim(int(x[0]),int(x[-1]))
+	ax.xaxis.set_major_locator(ticker.MultipleLocator(scl))
+	ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
+	ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
+	ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.01))
+	plib.grid(b=True)
+	plib.plot(x,j0)
+	plib.plot(x,j1)
+	plib.title("Função de Bessel de {} até {}".format(float(round(x[0],2)),float(round(x[-1],2))))
+	plib.ylabel("y")
+	plib.xlabel("x")
+	plib.legend(["J0(x)","J1(x)"])
+	plib.savefig('Plot_{}_{}.png'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0)
+	print("Plot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\nSalvos em: {2}\n".format(int(x[0]),int(x[-1]),find.cwd()))
+	return 'Plot_{}_{}.png'.format(int(x[0]),int(x[-1]))
+
+#Função que plota os dados de (x,J0,J1), graf é um arquivo .csv, resultado em .svg e .pdf
+def saveplot(graf, lar = Decimal(21)/Decimal(2.54), alt = Decimal(29.7)/Decimal(2.54), scl = 5):
+	o = open(graf,"r")
+	graf = list(csv.reader(o,delimiter=","))
+	o.close()
+	x  = [Decimal(graf[i][0]) for i in range(1,len(graf))]
+	j0 = [Decimal(graf[i][1]) for i in range(1,len(graf))]
+	j1 = [Decimal(graf[i][2]) for i in range(1,len(graf))]
+	plib.figure(figsize=(int(alt),int(lar)))
 	ax = plib.axes()
 	plib.xlim(int(x[0]),int(x[-1]))
 	ax.xaxis.set_major_locator(ticker.MultipleLocator(scl))
@@ -178,7 +203,7 @@ def tabelar(xi,xf): #Essa função tabela os pontos x, J0(x), e J1(x) entre (xi,
 	end_time = time.time()
 	print("PLOT_DATA_{1}_{2}.csv\nTabela_{1}_{2}.csv\nSalvo em: {0}\n".format(find.cwd(),prim,xf))
 	print("Pronto! Tempo decorrido: {}".format(end_time-start_time))
-	save = saveplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
-	return save
+	saveplot("PLOT_DATA_{}_{}.csv".format(prim,xf)) #Chamando função de criar o gráfico
+	return "PLOT_DATA_{}_{}.csv".format(prim,xf)
 
 ####################################################################################

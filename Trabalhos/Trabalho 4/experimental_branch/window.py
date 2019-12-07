@@ -27,12 +27,12 @@ class Console(Frame):
 		self.to_print.pack()
 
 	def show_img(self,img):
-		self.load = Image.open(img)
-		self.render = ImageTk.PhotoImage(load)
+		load = Image.open(img)
+		render = ImageTk.PhotoImage(load)
 
-		self.img = Label(self.console_frame, image=render)
-		self.img.image = render
-		self.img.pack()
+		img = Label(self.console_frame, image=render)
+		img.image = render
+		img.pack()
 
 	def delete_entry(self):
 		self.to_print.destroy()
@@ -161,7 +161,8 @@ class Tabelar_Menu(Frame):
 		Console.create_console_frame(self)
 		Console.show(self,"Tabelando...")
 		root.update_idletasks()
-		run = tabelar(self.Xi.get(),self.Xf.get())
+		tab = tabelar(Decimal(self.Xi.get()),Decimal(self.Xf.get()))
+		run = pngplot(tab)
 		Console.delete_entry(self)
 		Console.show(self,"Pronto!")
 		Console.show_img(self,run)
@@ -194,7 +195,7 @@ class Plot_Menu(Frame):
 app = Start_Menu(root)
 app = Console(root)
 
-root.geometry("800x600")
+root.geometry("1200x700")
 root.resizable(0,0) #Desativar modificação no tamanho da janela
 
 root.mainloop()
