@@ -18,14 +18,14 @@ def threader():
 
 q = Queue()
 
-for x in range(200):
+for x in range(4):
 	t = threading.Thread(target=threader)
 	t.daemon = True
 	t.start()
 
 start = time.time()
 
-for worker in range(200):
+for worker in range(10):
 	q.put(worker)
 print(q)
 q.join()

@@ -5,52 +5,49 @@ import threading
 from queue import Queue
 import time
 
-a = "3.141592653589793"
-getcontext().prec = 5
+pi = "3.141592653589793"
+getcontext().prec = 100
 
-def quad(x):
+def f(x):
 	return Decimal(x) ** 2
 
-def trapez(a,b):
-	a = Decimal(a)
-	b = Decimal(b)
-	res_sum = 0
-	step = Decimal("0.0001")
-	while a <= b:
-		worker = q.get()
-		f = quad(a)
-		a += step
-		area = f * step
-		res_sum += area
-	print(res_sum)
-
-def calc(a,b):
-	q = Queue()
-	n = 0
-	a = Decimal(a)
-	b = Decimal(b)
-	step = Decimal("0.0001")
+def trapez(f,a,b,n):
 	start = time.time()
+	a = Decimal(a)
+	b = Decimal(b)
+	n = int(n)
+	step = (b-a)/n
+	res_sum = 0
+	m = 0
 	while a <= b:
-		gui.OneLineProgressMeter("Integral from {} to {}".format(a,b),float(a),float(b),"integrate_key")
-		q.put(a)
+		if m%(n/100) == 0:
+			gui.OneLineProgressMeter("Integrando...",m,n,"integrate_key")
+		if event == "Cancel":
+			break
+		fx = eval(f)
 		a += step
-	print(time.time()-start)
+		res_sum += fx
+		m += 1
+	end = time.time()
+	return [round(res_sum*step,5),end-start]
+
+
 
 gui.change_look_and_feel('Dark Blue 3')
 layout = [
-	[gui.T("a",size=(2,1)),gui.In(key="a",size=(40,2)),gui.T("b",size=(2,1)),gui.In(key="b",size=(40,2)),gui.Exit()],
-	[gui.Output(size=(130,40))],
-	[gui.Button("Integrate",size=(120,6))]
+	[gui.T("f",size=(1,1)),gui.In(key="f",size=(40,2)),gui.T("a",size=(1,1)),gui.In(key="a",size=(40,2)),gui.T("b",size=(1,1)),gui.In(key="b",size=(40,2)),gui.T("N",size=(1,1)),gui.In(key="n",size=(40,2)),gui.Exit()],
+	[gui.Output(size=(180,20))],
+	[gui.Button("Integrate",size=(180,4))]
 ]
 
-window = gui.Window("Integrate",layout)
+window = gui.Window("Integrate",layout,return_keyboard_events = True)
 
 while True:
 	event, values = window.read()
 	if event in (None,"Exit"):
 		break
-	if event == "Integrate":
+	if event in ("Integrate"):
 		if values['a'] == "" or values['b'] == "":
 			continue
-		calc(values['a'],values['b'])
+		run = trapez(values['f'],values['a'],values['b'],values['n'])
+		print("{}\nTook: {}s".format(run[0],run[1]))
