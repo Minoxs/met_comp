@@ -18,16 +18,16 @@ def threader():
 
 q = Queue()
 
-for x in range(20):
+for x in range(200):
 	t = threading.Thread(target=threader)
 	t.daemon = True
 	t.start()
 
 start = time.time()
 
-for worker in range(40):
+for worker in range(200):
 	q.put(worker)
-
+print(q)
 q.join()
 
 print("job took:",time.time()-start)

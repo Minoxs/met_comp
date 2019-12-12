@@ -3,11 +3,10 @@ from decimal import *
 import PySimpleGUI as gui
 import threading
 from queue import Queue
+import time
 
 a = "3.141592653589793"
 getcontext().prec = 5
-
-q = Queue()
 
 def quad(x):
 	return Decimal(x) ** 2
@@ -18,13 +17,25 @@ def trapez(a,b):
 	res_sum = 0
 	step = Decimal("0.0001")
 	while a <= b:
-		gui.OneLineProgressMeter("Integral from {} to {}".format(a,b),float(a),float(b),"integrate_key")
 		worker = q.get()
 		f = quad(a)
 		a += step
 		area = f * step
 		res_sum += area
 	print(res_sum)
+
+def calc(a,b):
+	q = Queue()
+	n = 0
+	a = Decimal(a)
+	b = Decimal(b)
+	step = Decimal("0.0001")
+	start = time.time()
+	while a <= b:
+		gui.OneLineProgressMeter("Integral from {} to {}".format(a,b),float(a),float(b),"integrate_key")
+		q.put(a)
+		a += step
+	print(time.time()-start)
 
 gui.change_look_and_feel('Dark Blue 3')
 layout = [
@@ -40,4 +51,6 @@ while True:
 	if event in (None,"Exit"):
 		break
 	if event == "Integrate":
-		trapez(values['a'],values['b'])
+		if values['a'] == "" or values['b'] == "":
+			continue
+		calc(values['a'],values['b'])
