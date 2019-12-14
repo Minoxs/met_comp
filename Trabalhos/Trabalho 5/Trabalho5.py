@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from decimal import *
+from matplotlib import pyplot as plib
+from matplotlib import ticker
 import PySimpleGUI as gui
 import time
 
@@ -32,11 +34,45 @@ def sin(x):
     getcontext().prec -= 2
     return +s
 
+def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquivo .csv, resultado em .svg e .pdf
+	x  = graf[0]
+	j0 = graf[1]
+	plib.figure(figsize=(50,20))
+	ax = plib.axes()
+	plib.xlim(int(x[0]),int(x[-1]))
+	ax.xaxis.set_major_locator(ticker.MultipleLocator(2))
+	ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
+	ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
+	ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.01))
+	plib.grid(b=True)
+	plib.plot(x,j0)
+	plib.title("Função de Bessel de {} até {}, N = {}".format(float(round(x[0],2)),float(round(x[-1],2)),graf[2]))
+	plib.ylabel("y")
+	plib.xlabel("x")
+	plib.legend(["J0(x)"])
+	plib.savefig('Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
+	plib.savefig('Plot_{}_{}.svg'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
+	print("Salvos:\nPlot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\n".format(int(x[0]),int(x[-1])))
+	return "sucesso"
+
+def tabelar(xi,xf,n):
+	xi = Decimal(xi)
+	xf = Decimal(xf)
+	n  = Decimal(n)
+	x_list = []
+	j0 = []
+	while xi <= xf:
+		x_list.append(xi)
+		run = bessel(xi,n)
+		j0.append(run)
+		xi += Decimal("0.1")
+	return [x_list,j0,n]
+
 def f(F,x):
 	return eval(F)
 
 def bessel(x, n = 10000):
-	F = "cos({}*sin(x))".format(x)
+	F = "cos(Decimal({})*sin(x))".format(x)
 	res = trapez(F,0,pi,n)
 	return res[0] * (1/Decimal(pi))
 
@@ -70,16 +106,20 @@ layout = [
 	[gui.Button("Integrate",size=(180,4))]
 ]
 
-window = gui.Window("Trabalho 5",layout,return_keyboard_events = True)
+window = gui.Window("Trabalho 5",layout)
 
 while True:
 	event, values = window.read()
 	if event in (None,"Exit"):
 		break
 	if event == "Integrate":
-		if values['f'].lower() == "bessel":
+		if values['f'].lower() == "bessel" and values['a'] != "" and values['b'] == "" and values['n'] != "":
 			run = bessel(values['a'],values['n'])
-			print(run)
+			print(round(run,5))
+			continue
+		if values['f'].lower() == "bessel" and values['a'] != "" and values['b'] != "" and values['n'] != "":
+			run = tabelar(values['a'],values['b'],values['n'])
+			saveplot(run)
 			continue
 		run = trapez(values['f'],values['a'],values['b'],values['n'])
 		print("{}\nTook: {}s".format(run[0],run[1]))
