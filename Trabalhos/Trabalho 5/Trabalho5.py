@@ -5,31 +5,54 @@ from matplotlib import ticker
 import PySimpleGUI as gui
 import time
 
-pi = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
+pi = Decimal("3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679")
+e = Decimal("2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427427")
 getcontext().prec = 100
 
 def roots(F,a,b):
 	a = Decimal(a)
 	b = Decimal(b)
-	if a >= b:
+	if a == b:
 		print("a deve ser diferente de b")
 		return 0
-	if f(F,a) > 0 and f(F,b) > 0 or f(F,a) < 0 and f(F,b) < 0:
-		print("Não há raiz no intervalo")
-		return 0
+	elif f(F,a) > f(F,b):
+		temp = [a]
+		a = b
+		b = temp[0]
+		del temp
 	mid = 1
 	m = 0
 	while abs(mid) > Decimal("0.00000001"):
-		print("Iteration {}, F(mid_point) = {}".format(m,mid))
-		mid = f(F,(b+a)/2)
+		mid_point = (b+a)/2
+		mid = f(F,mid_point)
 		if mid < 0:
-			a = (b+a)/2
+			a = mid_point
 		elif mid > 0:
-			b = (b+a)/2
+			b = mid_point
 		m += 1
-		if m >= 1000:
+		if m >= 200:
+			mid_point = "Raiz não encontrada"
+			mid = None
 			break
-	return [(b+a)/2,mid]
+	return [mid_point,mid]
+#-(x**2)+2
+def cortes(F,a,b):
+	a = Decimal(a)
+	b = Decimal(b)
+	step = Decimal("0.2")
+	a_list=[]
+	b_list=[]
+	while a <= b:
+		left = f(F,a)
+		right = f(F,a+step)
+		if left == 0 or right == 0:
+			a_list.append(a)
+			b_list.append(a+step)
+		elif left.is_signed() and not right.is_signed() or not left.is_signed() and right.is_signed():
+			a_list.append(a)
+			b_list.append(a+step)
+		a += step
+	return [a_list,b_list]
 
 def cos(x):
     getcontext().prec += 2
@@ -56,6 +79,8 @@ def sin(x):
         s += num / fact * sign
     getcontext().prec -= 2
     return +s
+
+sen = sin
 
 def bessel_plot(graf):
 	x  = graf[0]
@@ -101,6 +126,7 @@ def tabelar(xi,xf,n):
 	return [x_list,j0,n,tempo]
 
 def f(F,x):
+	global pi, e
 	return eval(F)
 
 def bessel(x, n = 10000):
@@ -160,5 +186,11 @@ while True:
 		print("{}\nTook: {}s".format(run[0],run[1]))
 	if event == "Find Roots":
 		print("Finding roots")
-		root = roots(values['f'],values['a'],values['b'])
-		print("Raiz de {} é {}".format(values['f'],root))
+		corte = cortes(values['f'],values['a'],values['b'])
+		root_list = []
+		for i in range(len(corte[0])):
+			root_list.append(roots(values['f'],corte[0][i],corte[1][i]))
+		for i in range(len(root_list)):
+			raiz = round(root_list[i][0],10)
+			erro = round(root_list[i][1],10)
+			print("Raiz: {}, Erro estimado: {}".format(raiz,erro))

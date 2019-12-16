@@ -1,21 +1,9 @@
-import PySimpleGUI as sg
+from decimal import *
 
-# Recipe for getting keys, one at a time as they are released
-# If want to use the space bar, then be sure and disable the "default focus"
-
-text_elem = sg.Text("", size=(18, 1))
-
-layout = [[sg.Text("Press a key or scroll mouse")],
-          [text_elem],
-          [sg.Button("OK")]]
-
-window = sg.Window("Keyboard Test", layout,  return_keyboard_events=True, use_default_focus=False)
-
-# ---===--- Loop taking in user input --- #
-while True:
-    event, value = window.read()
-
-    if event == "OK" or event is None:
-        print(event, "exiting")
-        break
-    text_elem.Update(event)
+n = "14"
+m = "-13"
+n = Decimal(n)
+m = Decimal(m)
+lst = [n,m]
+print(lst)
+print(n.compare_signal(m))
