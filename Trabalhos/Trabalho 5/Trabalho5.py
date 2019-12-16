@@ -2,12 +2,13 @@
 from decimal import *
 from matplotlib import pyplot as plib
 from matplotlib import ticker
-import PySimpleGUI as gui
 import time
 
+#Constantes
 pi = Decimal("3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679")
 e = Decimal("2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427427")
-getcontext().prec = 100
+getcontext().prec = 100 # Precisão da biblioteca decimal.
+###############
 
 def roots(F,a,b):
 	a = Decimal(a)
@@ -22,7 +23,7 @@ def roots(F,a,b):
 		del temp
 	mid = 1
 	m = 0
-	while abs(mid) > Decimal("0.00000001"):
+	while abs(mid) > Decimal("0.00000000001"):
 		mid_point = (b+a)/2
 		mid = f(F,mid_point)
 		if mid < 0:
@@ -39,7 +40,7 @@ def roots(F,a,b):
 def cortes(F,a,b):
 	a = Decimal(a)
 	b = Decimal(b)
-	step = Decimal("0.2")
+	step = Decimal("0.01")
 	a_list=[]
 	b_list=[]
 	while a <= b:
@@ -48,7 +49,7 @@ def cortes(F,a,b):
 		if left == 0 or right == 0:
 			a_list.append(a)
 			b_list.append(a+step)
-		elif left.is_signed() and not right.is_signed() or not left.is_signed() and right.is_signed():
+		elif left > 0 and right < 0 or left < 0 and right > 0:
 			a_list.append(a)
 			b_list.append(a+step)
 		a += step
@@ -127,16 +128,19 @@ def tabelar(xi,xf,n):
 
 def f(F,x):
 	global pi, e
-	return eval(F)
+	F = F.replace("^","**").replace(",",".")
+	try:
+		return eval(F)
+	except TypeError:
+		x = float(x)
+		return eval(F)
 
-def bessel(x, n = 10000):
+def bessel(x, n = 100):
 	F = "cos(Decimal({})*sin(x))".format(x)
 	res = trapez(F,0,pi,n)
 	return [res[0] * (1/Decimal(pi)),res[1]]
 
 def trapez(F,a,b,n):
-	if F == "":
-		F = "x"
 	start = time.time()
 	a = Decimal(a)
 	b = Decimal(b)
@@ -145,52 +149,12 @@ def trapez(F,a,b,n):
 	res_sum = 0
 	m = 0
 	while a <= b:
-		if n >= 100 and m%int(n/100) == 0:
-			gui.OneLineProgressMeter("Integrando...",m,n,"integrate_key",F)
 		fx = f(F,a)
 		a += step
 		res_sum += fx
 		m += 1
-	if n >= 100:
-		gui.OneLineProgressMeter("Integrando...",n,n,"integrate_key",F)
 	end = time.time()
 	return [round(res_sum*step,5),end-start]
 
-
-#GUI CODE
-gui.change_look_and_feel('Dark Blue 3')
-layout = [
-	[gui.T("f",size=(1,1)),gui.In(key="f",size=(40,2)),gui.T("a",size=(1,1)),gui.In(key="a",size=(40,2)),gui.T("b",size=(1,1)),gui.In(key="b",size=(40,2)),gui.T("N",size=(1,1)),gui.In(key="n",size=(40,2)),gui.Exit()],
-	[gui.Output(size=(180,20))],
-	[gui.Button("Integrate",size=(160,4))],
-	[gui.Button("Find Roots",size=(160,4))]
-]
-
-window = gui.Window("Trabalho 5",layout)
-
 while True:
-	event, values = window.read()
-	if event in (None,"Exit"):
-		break
-	if event == "Integrate":
-		if values['f'].lower() == "bessel" and values['a'] != "" and values['b'] == "" and values['n'] != "":
-			run = bessel(values['a'],values['n'])
-			print(round(run[0],5))
-			continue
-		if values['f'].lower() == "bessel" and values['a'] != "" and values['b'] != "" and values['n'] != "":
-			run = tabelar(values['a'],values['b'],values['n'])
-			print('Tempo total: {}s'.format(round(run[3],4)))
-			bessel_plot(run)
-			continue
-		run = trapez(values['f'],values['a'],values['b'],values['n'])
-		print("{}\nTook: {}s".format(run[0],run[1]))
-	if event == "Find Roots":
-		print("Finding roots")
-		corte = cortes(values['f'],values['a'],values['b'])
-		root_list = []
-		for i in range(len(corte[0])):
-			root_list.append(roots(values['f'],corte[0][i],corte[1][i]))
-		for i in range(len(root_list)):
-			raiz = round(root_list[i][0],10)
-			erro = round(root_list[i][1],10)
-			print("Raiz: {}, Erro estimado: {}".format(raiz,erro))
+	break
