@@ -232,6 +232,18 @@ while True:
 			Run = False
 
 	elif com == "2":
-		pass
+		print("0 - Voltar \n1 - Calcular J0(x) \n2- Plotar J0(x) entre xi e xf")
+		inp = input("Comando: ")
+		
+		if inp == "0":
+			continue
+		
+		elif inp == "1":
+			while True:
+				
+
+		
+		elif inp == "2":
+			pass
 	elif com == "3":
 		pass
