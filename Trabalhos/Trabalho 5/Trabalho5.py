@@ -10,6 +10,7 @@ e = Decimal("2.71828182845904523536028747135266249775724709369995957496696762772
 getcontext().prec = 250 # Precisão da biblioteca decimal.
 ###############
 
+#Funções do Trabalho 5
 def f(F,x): #Calcula F(x) qualquer
 	global pi, e
 	F = F.replace("^","**").replace(",",".") #usa a notação de python, por isso '^' (denotando exponente) é mudado para '**', e vírgulas viram pontos.
@@ -20,15 +21,12 @@ def f(F,x): #Calcula F(x) qualquer
 		return eval(F)
 	except NameError: #Geralmente ocorre quando há alguma variável indefinida, ex: y, dx, etc.
 		print("Erro ao Interpretar Função.")
-		return 0
+		raise NameError
 
 def roots(F,a,b): #Função que calcula as raizes de F entre a e b. (Funciona melhor para pequenos intervalos de a e b)
 	a = Decimal(a)
 	b = Decimal(b)
-	if a == b:
-		print("a deve ser diferente de b")
-		return 0
-	elif f(F,a) == 0: #se um dos pontos extremos estiver sobre uma raiz, retorna a raiz do ponto extremo.
+	if f(F,a) == 0: #se um dos pontos extremos estiver sobre uma raiz, retorna a raiz do ponto extremo.
 		return [a,0]
 	elif f(F,b) == 0:
 		return [b,0]
@@ -75,7 +73,7 @@ def cortes(F,a,b): #Função que corta F(x) em fatias bem pequenas, para checar 
 		a += step
 	return [a_list,b_list]
 
-def cos(x):
+def cos(x): #Função que calcula cos(x) em decimal (retirada da documentação Decimal)
     getcontext().prec += 2
     i, lasts, s, fact, num, sign = 0, 0, 1, 1, 1, 1
     while s != lasts:
@@ -88,7 +86,7 @@ def cos(x):
     getcontext().prec -= 2
     return +s
 
-def sin(x):
+def sin(x): #Função que calcula sin(x) em decimal (retirada da documentação Decimal)
     getcontext().prec += 2
     i, lasts, s, fact, num, sign = 1, 0, x, 1, x, 1
     while s != lasts:
@@ -101,9 +99,52 @@ def sin(x):
     getcontext().prec -= 2
     return +s
 
-sen = sin
+sen = sin #Nomeando sen(x) = sin(x)
 
-def bessel_plot(graf):
+def trapez(F,a,b,n): #F é uma função qualquer F(x), a e b números reais, onde a < b, n um número inteiro e n > 0
+	start = time.time()
+	a = Decimal(a)
+	b = Decimal(b)
+	n = int(n)
+	step = (b-a)/n
+	res_sum = 0
+	while a <= b: #Calcula F(x) de a até b, onde a largura de cada fatia da F é (b-a)/n, e altura F(x).
+		fx = f(F,a)
+		a += step
+		res_sum += fx #Soma-se os resultados das F(x)
+	end = time.time()
+	if type(res_sum) is float:
+		step = float(step)
+	return [res_sum*step,end-start] #Por fim, multiplica a soma pela largura dos retângulos. Retorna [resultado_da_integral,tempo_de_calculo].
+
+def bessel(x, n): #Posso reescrever J(x) como Integral(cos(ysenx)dx)[de 0, à pi] (para seguir a notação da função f(F,x))
+	F = "cos(Decimal({})*sin(x))".format(x)
+	res = trapez(F,0,pi,n) #Coloca o x na F, e chama trapez(F,0,pi,n)
+	return [res[0] * (1/Decimal(pi)),res[1]] #Retorna o valor de J(x) e o tempo de cálculo
+
+def tabelar(xi,xf,n): #Tabela valores de J0(x) entre xi e xf, com n pontos na formula da quadratura
+	xi = Decimal(xi)
+	xf = Decimal(xf)
+	n  = Decimal(n)
+	x_list = []
+	j0 = []
+	tempo = 0
+	while xi <= xf:
+		if xi > 0 and -xi in x_list: #J(x) é simetrica em torno de 0, logo J(-x) = J(x)
+			one = time.time()		 #Portanto, posso cortar drasticamente o tempo p/ tabelar
+			x_list.append(xi)		 #Quando J(-x) já foi calculada, J(x) é apenas 'copiada'
+			j0.append(j0[x_list.index(-xi)])
+			tempo += time.time() - one
+			xi += Decimal("0.1")
+		else:
+			x_list.append(xi) #Quando J(-x) não foi calculada, usa-se a função bessel(x,n).
+			run = bessel(xi,n)
+			j0.append(run[0])
+			tempo += run[1]
+			xi += Decimal("0.1")
+	return [x_list,j0,n,tempo] #Retorna a lista para ser usada em bessel_plot()
+
+def bessel_plot(graf): #pega uma lista [[x0,x1,...,xn],[j00,j01,...,j0n],[N],[Tempo_de_Cálculo]] e coloca em um gráfico.
 	x  = graf[0]
 	j0 = graf[1]
 	plib.figure(figsize=(25,10))
@@ -124,52 +165,11 @@ def bessel_plot(graf):
 	print("Salvos:\nPlot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\n".format(int(x[0]),int(x[-1])))
 	return "sucesso"
 
-def tabelar(xi,xf,n):
-	xi = Decimal(xi)
-	xf = Decimal(xf)
-	n  = Decimal(n)
-	x_list = []
-	j0 = []
-	tempo = 0
-	while xi <= xf:
-		if xi > 0 and -xi in x_list:
-			one = time.time()
-			x_list.append(xi)
-			j0.append(j0[x_list.index(-xi)])
-			tempo += time.time() - one
-			xi += Decimal("0.1")
-		else:
-			x_list.append(xi)
-			run = bessel(xi,n)
-			j0.append(run[0])
-			tempo += run[1]
-			xi += Decimal("0.1")
-	return [x_list,j0,n,tempo]
 
-def bessel(x, n = 100):
-	F = "cos(Decimal({})*sin(x))".format(x)
-	res = trapez(F,0,pi,n)
-	return [res[0] * (1/Decimal(pi)),res[1]]
-
-def trapez(F,a,b,n):
-	start = time.time()
-	a = Decimal(a)
-	b = Decimal(b)
-	n = int(n)
-	step = (b-a)/n
-	res_sum = 0
-	while a <= b:
-		fx = f(F,a)
-		a += step
-		res_sum += fx
-	end = time.time()
-	return [res_sum*step,end-start]
-
-
-print(cortes("x**2",-1,1))
+###Código da UI
 print("Digite o número do comando")
 while True:
-	break
+	print("\n"*10)
 	print("""
 0 - Sair
 1 - Função trapez(F,a,b,n)
@@ -178,34 +178,59 @@ while True:
 		""")
 	com = input("Comando: ")
 	print("\n"*10)
+	
 	if com == "0":
 		break
+	
 	elif com == "1":
 		while True:
+			
 			F = input("Digite F(x)\nex: 'x^2'\nF(x): ")
 			a = input("Digite o limite INFERIOR da integral\na: ")
 			b = input("Digite o limite SUPERIOR da integral\nb: ")
 			n = input("Digeite o número de pontos à ser usado na quadratura\nn: ")
+			
 			try:
 				a = Decimal(a)
 				b = Decimal(b)
-				n = Decimal(n)
+				n = int(n)
 			except:
 				print("Valores numéricos de 'a,b ou n' não reconhecidos")
 				continue
+			
 			if a == b:
 				print("'a' igual a 'b'")
 				print("Integral de {} = 0".format(F))
 				Run = False
 				break
+			
+			elif a > b:
+				print("'a' deve ser menor que 'b'")
+				print("Calculando Integral de 'b' até 'a'")
+				temp = a
+				a = b
+				b = temp
+				del temp
+			
 			while n <= 0:
 				print("n deve ser >= 0")
-				n = input("Digeite o número de pontos à ser usado na quadratura\nn: ")
+				n = input("Digite o número de pontos à ser usado na quadratura\nn: ")
+				n = int(n)
+			
 			Run = True
 			break
-		if Run == True:
-			integral = trapez(F,a,b,n)
-			print("Resultado da Integral: {} \nTempo de Cálculo: {}".format(round(integral[0],5),round(integral[1],3)))	
+		
+		while Run:
+			try:
+				integral = trapez(F,a,b,n)
+				print("\n#####RESULTADO######")
+				print("Resultado da Integral: {} \nTempo de Cálculo: {}".format(round(integral[0],5),round(integral[1],3)))	
+				print("####################")		
+			except NameError:
+				F = input("Digite F(x)\nex: 'x^2'\nF(x): ")
+				continue
+			Run = False
+
 	elif com == "2":
 		pass
 	elif com == "3":
