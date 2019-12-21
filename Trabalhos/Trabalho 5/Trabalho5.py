@@ -52,6 +52,7 @@ def roots(F,a,b): #Função que calcula as raizes de F entre a e b. (Funciona me
 	return [mid_point,mid] #Retorna o ponto da raiz, e o valor de F(b+a/2), que é basicamente o erro.
 
 def cortes(F,a,b): #Função que corta F(x) em fatias bem pequenas, para checar quantos 0s há entre a e b.
+	prim = a
 	a = Decimal(a) #Muito útil para funções complicadas com vários 0s entre a e b.
 	b = Decimal(b)
 	step = Decimal("0.005") #Conforme testei, fatias de tamanho 0,005 é o suficiente para a maioria das funções,
@@ -71,12 +72,12 @@ def cortes(F,a,b): #Função que corta F(x) em fatias bem pequenas, para checar 
 			a_list.append(a)
 			b_list.append(a+step)
 		a += step
-	print("Raizes de F(x) = {}".format(F))
+	print("Raizes de F(x) = {}, Intervalo = ({} < x < {})".format(F,prim,b))
 	for i in range(len(a_list)): #Calcula o ponto onde está a raiz dos intervalos com 0 encontrados.
 		raiz = roots(F,a_list[i],b_list[i])
 		print("Raiz: x = {} \nErro = {}\n".format(raiz[0],round(raiz[1],10)))
 	if len(a_list) == 0:
-		print("Nenhuma raiz encontrada no intervalo ({} < x < {})".format(a,b))
+		print("Nenhuma raiz encontrada no intervalo ({} < x < {})".format(prim,b))
 
 def cos(x): #Função que calcula cos(x) em decimal (retirada da documentação Decimal)
     getcontext().prec += 2
@@ -175,7 +176,6 @@ def bessel_plot(graf): #pega uma lista [[x0,x1,...,xn],[j00,j01,...,j0n],[N],[Te
 	plib.show()
 	print("Salvos:\nPlot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\n".format(int(x[0]),int(x[-1])))
 	return "sucesso"
-
 
 ###Código da UI
 print("Digite o número do comando")
