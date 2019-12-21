@@ -24,16 +24,16 @@ def f(F,x): #Calcula F(x) qualquer
 		raise NameError
 
 def roots(F,a,b): #Função que calcula as raizes de F entre a e b. (Funciona melhor para pequenos intervalos de a e b)
-	a = Decimal(a)
+	a = Decimal(a) #Encontra apenas UMA raiz.
 	b = Decimal(b)
 	if f(F,a) == 0: #se um dos pontos extremos estiver sobre uma raiz, retorna a raiz do ponto extremo.
 		return [a,0]
 	elif f(F,b) == 0:
 		return [b,0]
 	elif f(F,a) > f(F,b): #Caso a função seja decrescente entre a e b, inverte a e b para que o algoritmo funcione normalmente.
-		temp = [a]
+		temp = a
 		a = b
-		b = temp[0]
+		b = temp
 		del temp
 	mid = 1
 	m = 0 # 'm' é o número de iterações, normalmente, ~30 são o suficiente.
@@ -54,7 +54,7 @@ def roots(F,a,b): #Função que calcula as raizes de F entre a e b. (Funciona me
 def cortes(F,a,b): #Função que corta F(x) em fatias bem pequenas, para checar quantos 0s há entre a e b.
 	a = Decimal(a) #Muito útil para funções complicadas com vários 0s entre a e b.
 	b = Decimal(b)
-	step = Decimal("0.001") #Conforme testei, fatias de tamanho 0,001 é o suficiente para a maioria das funções,
+	step = Decimal("0.005") #Conforme testei, fatias de tamanho 0,005 é o suficiente para a maioria das funções,
 	a_list=[]				#até as mais complicadas, sem prejudicar tanto o tempo de cálculo
 	b_list=[]
 	Lock = False
@@ -71,7 +71,12 @@ def cortes(F,a,b): #Função que corta F(x) em fatias bem pequenas, para checar 
 			a_list.append(a)
 			b_list.append(a+step)
 		a += step
-	return [a_list,b_list]
+	print("Raizes de F(x) = {}".format(F))
+	for i in range(len(a_list)): #Calcula o ponto onde está a raiz dos intervalos com 0 encontrados.
+		raiz = roots(F,a_list[i],b_list[i])
+		print("Raiz: x = {} \nErro = {}\n".format(raiz[0],round(raiz[1],10)))
+	if len(a_list) == 0:
+		print("Nenhuma raiz encontrada no intervalo ({} < x < {})".format(a,b))
 
 def cos(x): #Função que calcula cos(x) em decimal (retirada da documentação Decimal)
     getcontext().prec += 2
@@ -166,6 +171,7 @@ def bessel_plot(graf): #pega uma lista [[x0,x1,...,xn],[j00,j01,...,j0n],[N],[Te
 	plib.legend(["J0(x)"])
 	plib.savefig('Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
 	plib.savefig('Plot_{}_{}.svg'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
+	print("Gráfico aberto \nFeche o gráfico para continuar.")
 	plib.show()
 	print("Salvos:\nPlot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\n".format(int(x[0]),int(x[-1])))
 	return "sucesso"
@@ -193,7 +199,7 @@ while True:
 			F = input("Digite F(x)\nex: 'x^2'\nF(x): ")
 			a = input("Digite o limite INFERIOR da integral\na: ")
 			b = input("Digite o limite SUPERIOR da integral\nb: ")
-			n = input("Digeite o número de pontos à ser usado na quadratura\nn: ")
+			n = input("Digite o número de pontos à ser usado na quadratura\nn: ")
 			
 			try:
 				a = Decimal(a)
@@ -238,11 +244,11 @@ while True:
 
 	elif com == "2":
 		while True:
-			print("0 - Voltar \n1 - Calcular J0(x) \n2- Plotar J0(x) entre xi e xf")
+			print("0 - Voltar \n1 - Calcular J0(x) \n2 - Plotar J0(x) entre xi e xf")
 			inp = input("Comando: ")
 			
 			if inp == "0":
-				continue
+				break
 			
 			elif inp == "1":
 				while True:
@@ -262,7 +268,7 @@ while True:
 					break
 			
 			elif inp == "2":
-				print("Xi deve ser maior que Xf")
+				print("Xi deve ser menor que Xf")
 				while True:
 					xi = input("Digite Xi: ")
 					xf = input("Digite Xf: ")
@@ -282,4 +288,51 @@ while True:
 					break
 	
 	elif com == "3":
-		pass
+		while True:
+			print("0 - Voltar \n1 - Calcular raízes de F(x) qualquer \n2 - Encontrar raízes das funções dadas no Trabalho")
+			inp = input("Comando: ")
+			
+			if inp == "0":
+				break
+
+			if inp == "1":
+				print("'a' deve ser menor que 'b'")
+				while True:
+					F = input("Digite F(x): ")
+					a = input("Limite INFERIOR do intervalo para procurar a raiz \na: ")
+					b = input("Limite SUPERIOR do intervalo para procurar a raiz \nb: ")
+
+					try:
+						a = Decimal(a)
+						b = Decimal(b)
+					except:
+						print("Valores numéricos de 'a,b ou n' não reconhecidos")
+						continue
+
+					if a == b:
+						print("'a' deve ser menor que 'b'")
+
+					if a > b:
+						print("Calculando intervalo b < x < a")
+						temp = a
+						a = b
+						b = a
+						del temp
+					while True:
+						try:
+							cortes(F,a,b)
+						except NameError:
+							F = input("Digite F(x)\nex: 'x^2'\nF(x): ")
+							continue
+						break
+					break
+
+			if inp == "2":
+				print("\n"*10)
+				teste1 = "x - 2^(-x)"
+				teste2 = "e^x - x^2 + 3*x - 2"
+				teste3 = "2*x*cos(2*x)-(x+1)^2"
+				cortes(teste1,0,1)
+				cortes(teste2,0,1)
+				cortes(teste3,-3,0)
+				print("\n"*2)
