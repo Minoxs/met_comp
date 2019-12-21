@@ -108,10 +108,14 @@ def trapez(F,a,b,n): #F é uma função qualquer F(x), a e b números reais, ond
 	n = int(n)
 	step = (b-a)/n
 	res_sum = 0
+	m = 0
 	while a <= b: #Calcula F(x) de a até b, onde a largura de cada fatia da F é (b-a)/n, e altura F(x).
+		if m%(n/100) == 0:
+			print("Integral f(x)={}, {}% calculada".format(F,round((m*100)/n,2)))
 		fx = f(F,a)
 		a += step
 		res_sum += fx #Soma-se os resultados das F(x)
+		m += 1
 	end = time.time()
 	if type(res_sum) is float:
 		step = float(step)
@@ -162,6 +166,7 @@ def bessel_plot(graf): #pega uma lista [[x0,x1,...,xn],[j00,j01,...,j0n],[N],[Te
 	plib.legend(["J0(x)"])
 	plib.savefig('Plot_{}_{}.pdf'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
 	plib.savefig('Plot_{}_{}.svg'.format(int(x[0]),int(x[-1])),bbox_inches='tight',pad_inches=0.25)
+	plib.show()
 	print("Salvos:\nPlot_{0}_{1}.pdf\nPlot_{0}_{1}.svg\n".format(int(x[0]),int(x[-1])))
 	return "sucesso"
 
@@ -224,7 +229,7 @@ while True:
 			try:
 				integral = trapez(F,a,b,n)
 				print("\n#####RESULTADO######")
-				print("Resultado da Integral: {} \nTempo de Cálculo: {}".format(round(integral[0],5),round(integral[1],3)))	
+				print("Resultado da Integral: {} \nTempo de Cálculo: {}".format(round(integral[0],10),round(integral[1],3)))	
 				print("####################")		
 			except NameError:
 				F = input("Digite F(x)\nex: 'x^2'\nF(x): ")
@@ -232,18 +237,49 @@ while True:
 			Run = False
 
 	elif com == "2":
-		print("0 - Voltar \n1 - Calcular J0(x) \n2- Plotar J0(x) entre xi e xf")
-		inp = input("Comando: ")
-		
-		if inp == "0":
-			continue
-		
-		elif inp == "1":
-			while True:
-				
-
-		
-		elif inp == "2":
-			pass
+		while True:
+			print("0 - Voltar \n1 - Calcular J0(x) \n2- Plotar J0(x) entre xi e xf")
+			inp = input("Comando: ")
+			
+			if inp == "0":
+				continue
+			
+			elif inp == "1":
+				while True:
+					x = input("Digite x para calcular J(x):\n")
+					n = input("Números de ponto a ser usado no calculo da integral:\n")
+					try:
+						x = Decimal(x)
+						n = int(n)
+					except:
+						print("Erro ao interpretar valores de x ou n (devem ser números)")
+						continue
+					if n <= 0:
+						print("n deve ser inteiro e maior que 0")
+						continue
+					j0 = bessel(x,n)
+					print("J({}) = {} \nTempo de Cálculo: {}".format(x,round(j0[0],10),round(j0[1],10)))
+					break
+			
+			elif inp == "2":
+				print("Xi deve ser maior que Xf")
+				while True:
+					xi = input("Digite Xi: ")
+					xf = input("Digite Xf: ")
+					n  = input("Números de ponto a ser usado no calculo da integral:\n")
+					try:
+						xi = Decimal(xi)
+						xf = Decimal(xf)
+						n  = int(n)
+					except:
+						print("Erro ao interpretar valores de xi, xf ou n (devem ser números)")
+						continue
+					if n <= 0:
+						print("n deve ser inteiro e maior que 0")
+						continue
+					graf_data = tabelar(xi,xf,n)
+					bessel_plot(graf_data)
+					break
+	
 	elif com == "3":
 		pass
