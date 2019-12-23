@@ -18,9 +18,14 @@ def f(F,x): #Calcula F(x) qualquer
 		return eval(F)
 	except TypeError: #Caso tenha um float na F(x), calcula-se usando x como um float (invés de 'Decimal')
 		x = float(x)
+		e = float(e)
+		pi = float(pi)
 		return eval(F)
 	except NameError: #Geralmente ocorre quando há alguma variável indefinida, ex: y, dx, etc.
 		print("Erro ao Interpretar Função.")
+		raise NameError
+	except SyntaxError:
+		print("Erro de Sintaxe! \nGaranta que as multiplicações estão explicitas. (ex: 2*x invés de 2x)")
 		raise NameError
 
 def roots(F,a,b): #Função que calcula as raizes de F entre a e b. (Funciona melhor para pequenos intervalos de a e b)
@@ -60,8 +65,12 @@ def cortes(F,a,b): #Função que corta F(x) em fatias bem pequenas, para checar 
 	b_list=[]
 	Lock = False
 	while a <= b:
-		left = f(F,a)
-		right = f(F,a+step)
+		try:
+			left = f(F,a)
+			right = f(F,a+step)
+		except InvalidOperation:
+			a += step
+			continue
 		if Lock: #Para evitar raízes duplicadas, caso na iteração anterior, um dos pontos extremos (a ou b) tenha caído[...]
 			Lock = False #em cima de uma raiz, se pula uma iteração, para não duplicar a raiz.
 		elif left == 0 or right == 0: #Ponto extremo caiu sobre uma raiz
