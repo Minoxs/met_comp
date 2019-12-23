@@ -325,7 +325,7 @@ while True:
 						print("Calculando intervalo b < x < a")
 						temp = a
 						a = b
-						b = a
+						b = temp
 						del temp
 					while True:
 						try:
