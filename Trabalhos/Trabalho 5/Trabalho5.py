@@ -22,7 +22,7 @@ def f(F,x): #Calcula F(x) qualquer
 		pi = float(pi)
 		return eval(F)
 	except NameError: #Geralmente ocorre quando há alguma variável indefinida, ex: y, dx, etc.
-		print("Erro ao Interpretar Função.")
+		print("Erro ao Interpretar Função, única variável permitida é 'x'")
 		raise NameError
 	except SyntaxError:
 		print("Erro de Sintaxe! \nGaranta que as multiplicações estão explicitas. (ex: 2*x invés de 2x)")
@@ -68,7 +68,7 @@ def cortes(F,a,b): #Função que corta F(x) em fatias bem pequenas, para checar 
 		try:
 			left = f(F,a)
 			right = f(F,a+step)
-		except InvalidOperation:
+		except (InvalidOperation, DivisionByZero):
 			a += step
 			continue
 		if Lock: #Para evitar raízes duplicadas, caso na iteração anterior, um dos pontos extremos (a ou b) tenha caído[...]
