@@ -127,7 +127,11 @@ def trapez(F,a,b,n): #F é uma função qualquer F(x), a e b números reais, ond
 	while a <= b: #Calcula F(x) de a até b, onde a largura de cada fatia da F é (b-a)/n, e altura F(x).
 		if m%(n/100) == 0:
 			print("Integral f(x)={}, {}% calculada".format(F,round((m*100)/n,2)))
-		fx = f(F,a)
+		try:
+			fx = f(F,a)
+		except (InvalidOperation, DivisionByZero):
+			print("Função não-contínua no Intervalo")
+			return 0
 		a += step
 		res_sum += fx #Soma-se os resultados das F(x)
 		m += 1
@@ -249,6 +253,8 @@ while True:
 			except NameError:
 				F = input("Digite F(x)\nex: 'x^2'\nF(x): ")
 				continue
+			except (IndexError, TypeError):
+				break
 			Run = False
 
 	elif com == "2":
