@@ -1,6 +1,12 @@
 program trabalho2
 implicit none
-
+!------------------------- <Fortran90> <Program?> ------------------------
+! Referência: Trabalho 2 - Pontos Cartesianos e Conversão Decimal-Romana
+! Nome(s): Guilherme Wagner Correa (00303992)
+! Data: 26/09/2019
+! Objetivo: 1 -  Dizer em qual quadrante está N pontos em um plano cartesiano.
+!			2 -  Converter números em Base-10 para Números Romanos
+!--------------------------------------------------------------------------
 integer :: com !Variável de comando
 integer :: pri, seg, ter, qua, xaxis, yaxis !Variáveis exercício 1
 real :: input1, input2 !Variáveis de input
@@ -127,7 +133,7 @@ case ("3")
 	else if (j .EQ. 3) then
 		res_piece(3) = "iii"
 	endif
-case ("4")
+case ("4")!--. ..- .. .-.. .... . .-. -- .     .-- .- --. -. . .-.     -.-. --- .-. .-. . .-
 	if (j .EQ. 1) then
 		res_piece(1) = "cd"
 	else if (j .EQ. 2) then

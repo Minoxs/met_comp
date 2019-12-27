@@ -1,8 +1,19 @@
 #!/usr/bin/env python3
+#Sempre usar shebang em scripts
 from decimal import *
 from matplotlib import pyplot as plib
 from matplotlib import ticker
 import time
+
+#---------------------<PROGRAMA>----------------------------------
+# Referência: Trabalho n. 5
+# Nome(s): Guilherme Wagner Correa (00303992)
+# Data: 23/12/2019
+# Objetivo: Descrito no moodle.
+#			1 - Integral Qualquer
+#			2 - Bessel usando a fórmula integral
+#			3 - Raízes de equações qualquer, usando bisecção.
+#--------------------------------------------------------------------------
 
 #Constantes
 pi = Decimal("3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679")
@@ -144,7 +155,7 @@ def bessel(x, n): #Posso reescrever J(x) como Integral(cos(ysenx)dx)[de 0, à pi
 	F = "cos(Decimal({})*sin(x))".format(x)
 	res = trapez(F,0,pi,n) #Coloca o x na F, e chama trapez(F,0,pi,n)
 	return [res[0] * (1/Decimal(pi)),res[1]] #Retorna o valor de J(x) e o tempo de cálculo
-
+#--. ..- .. .-.. .... . .-. -- .     .-- .- --. -. . .-.     -.-. --- .-. .-. . .-
 def tabelar(xi,xf,n): #Tabela valores de J0(x) entre xi e xf, com n pontos na formula da quadratura
 	xi = Decimal(xi)
 	xf = Decimal(xf)
@@ -227,7 +238,7 @@ while True:
 				print("Integral de {} = 0".format(F))
 				Run = False
 				break
-			
+##--. ..- .. .-.. .... . .-. -- .     .-- .- --. -. . .-.     -.-. --- .-. .-. . .-
 			elif a > b:
 				print("'a' deve ser menor que 'b'")
 				print("Calculando Integral de 'b' até 'a'")

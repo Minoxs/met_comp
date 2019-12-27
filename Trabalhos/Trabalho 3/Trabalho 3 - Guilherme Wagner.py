@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+#Sempre colocar shebang em scripts
 #------------------------- <Python 3.5.9> <Script> ------------------------
 # Referência: Trabalho 3 - Solução de uma equação cúbica
 # Nome(s): Guilherme Wagner Correa (00303992)

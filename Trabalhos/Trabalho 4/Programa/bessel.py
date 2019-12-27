@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Sempre colocar shebang em scripts
 from matplotlib import pyplot as plib #Para produzir os gráficos
 from matplotlib import ticker #Para modificar os 'ticks' dos gráficos
 from math import factorial #Apenas para a função fatorial(usada em J0)
@@ -164,7 +165,7 @@ def saveplot(graf): #Função que plota os dados de (x,J0,J1), graf é um arquiv
 	ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.01))
 	plib.grid(b=True)
 	plib.plot(x,j0)
-	plib.plot(x,j1)
+	plib.plot(x,j1)#--. ..- .. .-.. .... . .-. -- .     .-- .- --. -. . .-.     -.-. --- .-. .-. . .-
 	plib.title("Função de Bessel de {} até {}".format(float(round(x[0],2)),float(round(x[-1],2))))
 	plib.ylabel("y")
 	plib.xlabel("x")

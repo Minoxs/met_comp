@@ -1,58 +1,8 @@
-# Métodos Computacionais
-Repositório que eu vou usar para essa cadeira :)
+# Métodos Computacionais da Física A (FIS01203-A | UFRGS)
 
-## Aula 1 e 2
-Introdução ao Linux e shell
+#### Repositório que usei na cadeira FIS01203-A, Métodos Computacionais da Física A na UFRGS.   
 
-## Aula 3 e 4
-LaTeX
 
-## Aula 5 e 6
-Fortran (?)
-
-## Aula do dia 28/08/2019
-Aula sobre fortran.
-
-Não prestei muita atenção porque é bem simples e está tudo na apostila no moodle.
-
-Fiz algum progresso no _coin\_game_. :)
-
-## Aula do dia 02/09/2019
-Mais coisas sobre fortran, o professor começou em 3.2 e continuou até não sei aonde.
-
-Fiquei fazendo o trabalho 1 de latex
-
-## Aula do dia 04/09/2019
-_"Perdi"_ a aula, talvez eu pergunte à alguém o que aconteceu e adicione aqui depois.
-
-Terminei o trabalho 1 de latex, ~vou enviar para o professor via email pois o envio pelo moodle está com problemas (é um trabalho individual, que no moodle consta como em grupo, fazendo com que seja enviado para absolutamente todo mundo)~
-Enviei via moodle. Aparentemente o professor queria fazer a entrega do trabalho desse jeito mesmo. Que bizarro.
-
-## Aula do dia 09/09/2019
-Loops and the like on Fortran...   
-Capítulo 5 da apostila de Fortran moderno   
-	**Cycle = Continue do Python3**   
-	**exit = break**   
-Cheguei mais pro fim da aula kk   
-#### Fazer lista de exercícios assim que possível!!
-
-## Estudando na biblioteca 09/09/2019
-"read *, a" == "a = input()" <- porém esse input serve apenas para números   
-"print *, 'Valor lido:',a" == "print('Valor lido:{}'.format(a))"   
-"kind(a)" == "type(a)"   
-expressões matemáticas funcionam tanto quanto em python.
-
-## Aula do dia 18/09/2019
-Capítulo 6 da apostila de fortran sobre matrizes e coisas do tipo.   
-more <nome_do_arquivo> | wc <- Conta a quantidade de Linhas/Palavras/Caracteres em um arquivo de texto.
-
-## Aula do dia 23/09/2019
-Fiquei pouquinho tempo pq tava de saco cheio o3o  
-Professor passou o capítulo 7 da apostila de fortran  
-#### Lista de exercícios 1 pronta, 2 basicamente pronta  
-### Trabalho 2 concluído!!  
-### Trabalhos requerem que tenha um certo cabeçalho que foi disponibilizado no moodle, não esquecer pois vale 10%-15% da nota (wtf??)  
-
-## Aula do dia 09/10/2019
-Começando a apostila de intro a fisica computacional (talvez agora fique mais divertido :B)  
-
+NÃO COPIE OS TRABALHOS; É de extrema importância que os conceitos por trás dos algorítmos sejam compreendidos.   
+Use os arquivos aqui disponibilizados apenas como referência de como pode resolver os seus trabalhos.   
+Todos os códigos foram apropriadamente comentados, qualquer dúvida, sinta-se livre para entrar em contato comigo.
